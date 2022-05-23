@@ -1,7 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const ShowProduct = ({ product: { category, image, short_description, minimum_quantity, name, total_quantity, price, discount_price,newI } }) => {
-
+const ShowProduct = ({ product: { _id,category, image, short_description, minimum_quantity, name, total_quantity, price, discount_price, newI } }) => {
+    const navigate = useNavigate()
     return (
 
         <div className="card w-96 bg-base-100 shadow-xl">
@@ -10,7 +11,7 @@ const ShowProduct = ({ product: { category, image, short_description, minimum_qu
                 <h2 className="card-title">
                     {name}
                     {
-                        newI?<div className="badge badge-secondary">NEW</div>:''
+                        newI ? <div className="badge badge-secondary">NEW</div> : ''
                     }
                 </h2>
                 <p>{short_description.slice(0, 50)}...</p>
@@ -38,7 +39,7 @@ const ShowProduct = ({ product: { category, image, short_description, minimum_qu
                         <button className="btn btn-secondary">Add to Favorite</button>
                     </div>
                     <div className="card-actions justify-end">
-                        <button className="btn btn-secondary">Order Now</button>
+                        <button onClick={()=>navigate('/purchase/'+_id)} className="btn btn-secondary">Order Now</button>
                     </div>
                 </div>
             </div>

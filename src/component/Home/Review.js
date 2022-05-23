@@ -27,8 +27,8 @@ const Review = () => {
     ]
     return (
         <div className='mt-4 mb-4  bg-primary' >
-            <div className='flex items-center text-white w-full justify-center m-6 p-6 flex-wrap'>
-                <div className='md:w-[50%]  text-center md:text-right  p-4'>
+            <div className='flex items-center text-white w-full justify-center m-6 p-6 flex-wrap md:flex-nowrap'>
+                <div className='md:w-[50%]  font-bold text-center md:text-right  p-4'>
                     <h1 className='text-2xl md:text-3xl'>What Our Client's Say: </h1>
                 </div>
                 <div class="carousel w-[50%]">
@@ -41,7 +41,7 @@ const Review = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <h1 className='text-xl text-white'>{review.name}</h1>
+                                    <h1 className='text-2xl font-bold text-white'>{review.name}</h1>
                                     <p>{review.text.slice(0, 50)} ...</p>
                                 </div>
                             </div>
