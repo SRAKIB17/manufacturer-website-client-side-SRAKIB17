@@ -2,9 +2,11 @@ import React from 'react';
 import { get, useForm } from "react-hook-form";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import { toast } from 'react-toastify';
 
 
-const Shipped = ({ product }) => {
+const Shipped = ({ product:{product, quantityRef, setProductSet} }) => {
+    console.log(quantityRef.current.value)
 
     const [user] = useAuthState(auth)
 
@@ -12,7 +14,8 @@ const Shipped = ({ product }) => {
 
 
     const onSubmit = async data => {
-
+        setProductSet(false);
+        toast.success('Successfully Placed Order')
     }
 
     const heightAutoHandle = (e) => {
@@ -71,12 +74,12 @@ const Shipped = ({ product }) => {
                         {errors.tel?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.tel.message}</span>}
 
                         <textarea
-                            {...register("review", {
-                                required: {
-                                    value: true,
-                                    message: 'Review is required'
-                                }
-                            })}
+                            // {...register("address", {
+                            //     required: {
+                            //         value: true,
+                            //         message: 'address is required'
+                            //     }
+                            // })}
                             placeholder="Address"
                             className="input input-bordered input-accent mt-2 mb-2 p-2 w-full textareaScroll"
 

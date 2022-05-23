@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import Shipped from './Shiped';
 
@@ -13,7 +13,8 @@ const Purchase = () => {
         discount_price: 20,
         category: 'black'
     }
-    const quantityRef = useRef()
+    const quantityRef = useRef();
+    const [productSet, setProductSet]= useState(false)
     useEffect(()=>{
         quantityRef.current.value = product.minimum_quantity
     },[])
@@ -67,9 +68,11 @@ const Purchase = () => {
                             <button onClick={() => increaseDecreaseHandle('inc')} className='btn text-2xl ml-2'>+</button>
                         </div>
                         
-                        <label for="shippedProduct" class="btn btn-secondary text-white">Buy Now</label>
+                        <label for="shippedProduct" onClick={()=>setProductSet(true)} class="btn btn-secondary text-white">Buy Now</label>
                     </div>
-                    <Shipped/>
+                   {
+                       productSet &&  <Shipped product={{product, quantityRef, setProductSet}}/>
+                   }
                 </div>
 
             </div>
