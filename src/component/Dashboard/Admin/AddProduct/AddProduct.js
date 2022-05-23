@@ -9,30 +9,37 @@ import AllQuantity from './AllQuantity';
 import Image from './Image';
 
 const AddProduct = () => {
-    const [user] = useAuthState(auth)
-    const reviewRef = useRef();
+
+    const shortDescriptionRef = useRef()
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const [getImageData, setGetImageData] = useState('');
-    const [getImageUrl, setGetImageUrl] = useState('')
+    const [getImageUrl, setGetImageUrl] = useState('');
 
 
-    //---------------------auto matic ----------------------
 
-    // {
-    //     
-    //         image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-    //                 
-    //                                 category: 'black',
-    //                                    
-    // },
 
-    const onSubmit = async (data, e) => {
+    const aa = {
+        newI: true
+    }
 
-        reset()
+    const onSubmit = async (data) => {
+        const ProductData = { ...data, image: getImageUrl, short_description: shortDescriptionRef.current.value }
+        console.log(ProductData)
+
+        // reset()
     }
     return (
-        <div className='flex'>
-            <div className='flex flex-col justify-center items-center md:items-start'>
+        <div className='flex md:flex-row flex-col-reverse'>
+            <div className='order-2 mx-auto m-5'>
+                {
+                    getImageData && <>
+
+                        <h1 className='text-3xl font-bold'>Preview Image</h1>
+                        <img src={getImageData} alt="" className='image-full'/>
+                    </>
+                }
+            </div>
+            <div className='flex flex-col justify-center items-center md:items-start order-1'>
                 <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-64 md:w-96 justify-center'>
 
                     {/* -----------------------------------------------for naem-----------------------------------------------  */}
@@ -42,9 +49,9 @@ const AddProduct = () => {
                     <Category register={register} errors={errors} />
 
                     <AllQuantity register={register} errors={errors} />
-                    <Image props={{ setGetImageData , setGetImageUrl}} />
+                    <Image props={{ setGetImageData, setGetImageUrl }} />
 
-                    <Description register={register} errors={errors} />
+                    <Description getRef={shortDescriptionRef} />
 
 
 
@@ -54,15 +61,7 @@ const AddProduct = () => {
 
             </div>
 
-            <div>
-                {
-                    getImageData && <>
 
-                        <h1 className='text-3xl font-bold'>Preview Image</h1>
-                        <img src={getImageData} alt="" />
-                    </>
-                }
-            </div>
         </div>
     );
 };

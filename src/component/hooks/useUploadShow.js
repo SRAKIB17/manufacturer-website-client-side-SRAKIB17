@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
 
-const useFileUploader = (setImageUrl) => {
+const useFileUploader = () => {
+    const [result, setResult] = useState('')
 
     const [fileData, setFileData] = useState('');
     const [message, setMessage] = useState('')
-    console.log(process.env.REACT_APP_IMAGEBB)
+    
     const uploadFileHandler = async (e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -37,23 +38,23 @@ const useFileUploader = (setImageUrl) => {
                 setMessage('successfully uploaded');
                 setFileData(result);
 
-                // fetch(`https://api.imgbb.com/1/upload?key=${}"`, {
-                //     method: 'POST',
-                //     body: formData,
-                // })
-                //     .then(response => response.json())
-                //     .then(result => {
-                //         console.log('Success:', result);
-                //     })
-                //     .catch(error => {
-                //         console.error('Error:', error);
-                //     });
+                fetch(`https://api.imgbb.com/1/upload?key=15847c16066308ed3e47892c5212cefd`, {
+                    method: 'POST',
+                    body: formData,
+                })
+                    .then(response => response.json())
+                    .then(resultImage => {
+                        setResult(resultImage)
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
 
             }
         }
         oReader.readAsDataURL(files);
     }
-    return { fileData, message, uploadFileHandler }
+    return { fileData, message, uploadFileHandler,result }
 };
 
 export default useFileUploader;

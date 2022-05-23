@@ -46,10 +46,10 @@ const AddReview = () => {
         reset()
     }
     return (
-        <div>
+        <div className='flex justify-center'>
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-64 md:w-96 justify-center'>
-
-                <textarea 
+                <h1 className='text-2xl text-center p-4'>Add Review</h1>
+                <textarea
                     {...register("review", {
                         required: {
                             value: true,
@@ -68,7 +68,7 @@ const AddReview = () => {
                     onKeyDown={heightAutoHandle}
                     onBlur={heightAutoHandle}
                     onKeyUp={heightAutoHandle}
-                    
+
                 />
                 {errors.review?.type === 'required' && <span className='label-text-alt text-red-500'> {errors.review.message}</span>}
 

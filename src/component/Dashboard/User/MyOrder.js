@@ -67,33 +67,29 @@ const MyOrder = () => {
         },
     ]
     return (
-        <div>
-            <div>
-                <div>
-                    <div class="overflow-x-auto">
-                        <table class="table table-zebra w-full">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th>NAME</th>
-                                    <th>CATEGORY</th>
-                                    <th>PRICE</th>
-                                    <th>Last Login</th>
-                                    <th>Favorite Color</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    myProduct.map((product , index)=> <MyOrderShow product={product} index={index} key={product._id} />)
-                                }
-                            </tbody>
+        <div class="overflow-x-auto p-6">
+            <table class="table table-zebra w-full">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>NAME</th>
+                        <th>CATEGORY</th>
+                        <th>PRICE</th>
+                        <th>Last Login</th>
+                        <th>Favorite Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        myProduct.map((product, index) => <MyOrderShow product={product} index={index} key={product._id} />)
+                    }
+                </tbody>
 
-                        </table>
-                    </div>
-                </div>
-            </div>
+            </table>
+
         </div>
+
     );
 };
 

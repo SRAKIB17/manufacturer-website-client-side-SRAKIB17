@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import useFileUploader from '../../../hooks/useUploadShow';
 
 const Image = ({ props: { setGetImageData, setGetImageUrl } }) => {
-    console.log(setGetImageData)
-    const { fileData, uploadFileHandler, message } = useFileUploader(setGetImageUrl);
+ 
+    const { fileData, uploadFileHandler, message, result } = useFileUploader();
+   
     useEffect(() => {
-        setGetImageData(fileData)
-    }, [fileData])
+        setGetImageData(fileData);
+        setGetImageUrl(result?.data?.url)
+    }, [fileData, result])
 
 
     const imageDrop = (e) => {
