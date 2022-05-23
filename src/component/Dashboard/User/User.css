@@ -1,0 +1,3 @@
+.textareaScroll::-webkit-scrollbar{
+    display: none;
+}

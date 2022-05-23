@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { get, useForm } from "react-hook-form";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 const AddReview = () => {
     const [user] = useAuthState(auth)
+    const reviewRef = useRef()
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
     // {
@@ -13,6 +14,16 @@ const AddReview = () => {
     //             text: 'fsdfsdflsdfjsdlfjsdlfjsdlfsdjfsdlfsdfsdlf',
     //                 rating: 5
     // // }
+
+    //---------------------auto matic ----------------------
+    const heightAutoHandle = (e) => {
+        e.target.style.height = 'auto'
+        e.target.style.height = e.target.scrollHeight + 'px'
+    }
+
+    const onchangeInput = (e) => {
+        heightAutoHandle(e)
+    }
 
     const onSubmit = async (data, e) => {
         let rating = e.target.ownerDocument.querySelectorAll('.mask-star-2');
@@ -36,10 +47,9 @@ const AddReview = () => {
     }
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-64 justify-center'>
+            <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-64 md:w-96 justify-center'>
 
-                <textarea
-                    cols="30" rows="10"
+                <textarea 
                     {...register("review", {
                         required: {
                             value: true,
@@ -47,7 +57,18 @@ const AddReview = () => {
                         }
                     })}
                     placeholder="Review"
-                    className="input input-bordered input-accent mb-2 w-full"
+                    className="input input-bordered input-accent mb-2 p-2 w-full textareaScroll"
+
+                    onChange={onchangeInput}
+                    onInput={onchangeInput}
+
+                    onCut={heightAutoHandle}
+                    onPaste={heightAutoHandle}
+                    onDrop={heightAutoHandle}
+                    onKeyDown={heightAutoHandle}
+                    onBlur={heightAutoHandle}
+                    onKeyUp={heightAutoHandle}
+                    
                 />
                 {errors.review?.type === 'required' && <span className='label-text-alt text-red-500'> {errors.review.message}</span>}
 

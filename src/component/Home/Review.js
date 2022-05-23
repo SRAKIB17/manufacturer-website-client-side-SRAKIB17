@@ -1,13 +1,14 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { Link } from 'react-router-dom';
+import ReviewShow from './ReviewShow';
 
 const Review = () => {
     const reviews = [{
         img: 'https://demo.templatetrend.com/prestashop/PRS373/img/cms/mail.png',
         name: "Yousuf",
         text: 'reflsdflsdfj'
-    }, 
+    },
     {
         text: 'fsdLorem ipsum, dolor sit amet consectetur adipisicing elit. Eum doloremque autem, unde tempore labore velit accusantium iste nobis quam asperiores dolores veritatis, voluptatum ratione voluptates magni minima necessitatibus aliquid nam!fsdflsdfjsdlfjsdlfjsdlfsdjfsdlfsdfsdlf',
         rating: 5
@@ -22,7 +23,7 @@ const Review = () => {
         img: 'https://demo.templatetrend.com/prestashop/PRS373/img/cms/mail.png',
         name: "Yousuf",
         text: 'fsdfsdflsdfjsdlfjsdlfjsdlfsdjfsdlfsdfsdlf',
-        rating: 5
+        rating: 3
     }
     ]
     return (
@@ -33,21 +34,7 @@ const Review = () => {
                 </div>
                 <div class="carousel w-[50%]">
                     {
-                        reviews.map((review, index) =>
-                            <div id={'review' + index} class="carousel-item w-full p-4">
-                                <div class="avatar mr-4">
-                                    <div class="w-24 mask mask-hexagon">
-                                        <img src="https://api.lorem.space/image/face?hash=55350" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <h1 className='text-2xl font-bold text-white'>{review.name}</h1>
-                                    <p>{review.text.slice(0, 50)} ...</p>
-                                </div>
-                            </div>
-
-
-                        )
+                        reviews.map((review, index) => <ReviewShow review={review} index={index}/>)
                     }
                 </div>
             </div>
