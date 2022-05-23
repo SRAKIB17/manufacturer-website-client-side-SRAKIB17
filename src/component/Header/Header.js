@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../image/header/logo.png'
 import { signOut } from 'firebase/auth'
+import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 
 const Header = () => {
+    const [user] = useAuthState(auth);
+
+
     return (
         <div>
             <div className="navbar bg-primary text-white">
@@ -15,7 +19,12 @@ const Header = () => {
                         </label>
                         <ul tabIndex="0" className="menu menu-compact dropdown-content text-black mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li><Link to='/'> Home</Link></li>
-                            <li><Link to='/login'> Login</Link></li>
+                            {
+                            user?.uid ?'':
+                                <>
+                                    <li><Link to='/login'> Login</Link></li>
+                                </>
+                        }
 
                             <li tabIndex="0">
                                 <a className="justify-between">
@@ -36,7 +45,12 @@ const Header = () => {
                 <div className="navbar-start hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
                         <li><Link to='/'> Home</Link></li>
-                        <li><Link to='/login'> Login</Link></li>
+                        {
+                            user?.uid ?'':
+                                <>
+                                    <li><Link to='/login'> Login</Link></li>
+                                </>
+                        }
                         <li tabIndex="0" >
                             <a>
                                 Parent
@@ -67,10 +81,10 @@ const Header = () => {
                                 </label>
                                 <ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                                     <li>
-                                        <a className="justify-between">
+                                        <Link to='/dashboard/profile' className="justify-between">
                                             Profile
-                                            <span className="badge">New</span>
-                                        </a>
+
+                                        </Link>
                                     </li>
                                     <li><Link to='/dashboard'>Dashboard</Link></li>
                                     <li><button onClick={() => signOut(auth)}> Logout</button></li>

@@ -10,6 +10,7 @@ import Private from './component/Login/Private';
 import Dashboard from './component/Dashboard/Dashboard';
 import MyProfile from './component/Dashboard/MyProfile';
 import AddReview from './component/Dashboard/User/AddReview';
+import MyOrder from './component/Dashboard/User/MyOrder';
 
 function App() {
   return (
@@ -23,8 +24,10 @@ function App() {
         <Route path='/purchase/:id' element={<Private><Purchase /></Private>} />
 
         <Route path='/dashboard' element={<Private><Dashboard /></Private>}>
+          <Route index element={<MyProfile/>}/>
           <Route path='profile' element={<MyProfile/>}/>
           <Route path='add-review' element={<AddReview/>}/>
+          <Route path='my-order' element={<MyOrder/>}/>
         </Route>
 
       </Routes>
