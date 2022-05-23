@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { toast } from 'react-toastify';
+import Shipped from './Shiped';
 
 const Purchase = () => {
-    const quantityRef = useRef()
     const product = {
         name: 'Hummingbird Printed Sweater',
         image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
@@ -12,6 +13,10 @@ const Purchase = () => {
         discount_price: 20,
         category: 'black'
     }
+    const quantityRef = useRef()
+    useEffect(()=>{
+        quantityRef.current.value = product.minimum_quantity
+    },[])
 
     const increaseDecreaseHandle = (method) => {
         const quantityParse = Number(quantityRef.current.value)
@@ -19,11 +24,11 @@ const Purchase = () => {
             quantityRef.current.value = quantityParse + 1;
         }
         else if (method === 'dec') {
-            if (quantityParse >= Number(product?.minimum_quantity)) {
+            if (quantityParse > Number(product?.minimum_quantity)) {
                 quantityRef.current.value = quantityParse - 1;
             }
             else{
-                
+                toast.error('You should add minimum '+product?.minimum_quantity+' quantity')
             }
         }
 
@@ -61,8 +66,10 @@ const Purchase = () => {
 
                             <button onClick={() => increaseDecreaseHandle('inc')} className='btn text-2xl ml-2'>+</button>
                         </div>
-                        <button class="btn btn-secondary text-white">Get Started</button>
+                        
+                        <label for="shippedProduct" class="btn btn-secondary text-white">Buy Now</label>
                     </div>
+                    <Shipped/>
                 </div>
 
             </div>
