@@ -11,6 +11,7 @@ import Dashboard from './component/Dashboard/Dashboard';
 import MyProfile from './component/Dashboard/MyProfile';
 import AddReview from './component/Dashboard/User/AddReview';
 import MyOrder from './component/Dashboard/User/MyOrder';
+import AddProduct from './component/Dashboard/Admin/AddProduct/AddProduct';
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
           <Route path='profile' element={<MyProfile/>}/>
           <Route path='add-review' element={<AddReview/>}/>
           <Route path='my-order' element={<MyOrder/>}/>
+
+          <Route path='add-product' element={<AddProduct/>}/>
         </Route>
 
       </Routes>
