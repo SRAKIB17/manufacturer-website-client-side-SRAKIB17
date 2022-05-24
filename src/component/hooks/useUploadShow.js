@@ -11,7 +11,11 @@ const useFileUploader = () => {
         e.preventDefault()
         e.stopPropagation()
         let dt = e.dataTransfer;
-        let files = dt.files[0];
+        let files = dt?.files[0];
+        if(!files){
+            files = e.target.ownerDocument.querySelector('#uploaderManually').files[0];
+           console.log(files)
+        }
 
 
 

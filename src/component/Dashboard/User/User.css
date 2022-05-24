@@ -23,6 +23,14 @@
     padding: 20px;
     margin: 10px 0;
 }
+#uploaderManually {
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    max-width: 320px;
+    font-family: sans-serif;
+    padding: 20px;
+    margin: 10px 0;
+}
 
 #uploaderFile.highlight {
     border-color: purple;

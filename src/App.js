@@ -14,6 +14,7 @@ import MyOrder from './component/Dashboard/User/MyOrder';
 import AddProduct from './component/Dashboard/Admin/AddProduct/AddProduct';
 import MakeAdmin from './component/Dashboard/Admin/MakeAdmin';
 import ManageProducts from './component/Dashboard/Admin/ManageProducts';
+import ManageAllOrders from './component/Dashboard/Admin/ManageAllOrders';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path='add-product' element={<AddProduct/>}/>
           <Route path='users' element={<MakeAdmin/>}/>
           <Route path='manage-products' element={<ManageProducts/>}/>
+          <Route path='manage-orders' element={<ManageAllOrders/>}/>
         </Route>
 
       </Routes>

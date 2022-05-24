@@ -18,7 +18,7 @@ const MyProfile = () => {
                         </div>
                     </div>
                     <div className='p-4'>
-                        <button className='btn btn-secondary btn-xs'>Update Profile</button>
+                        <button className='btn btn-secondary btn-xs' onClick={()=>alert('this feature update soon')}>Update Profile</button>
                     </div>
                 </div>
                 <div className='p-4 text-center'>

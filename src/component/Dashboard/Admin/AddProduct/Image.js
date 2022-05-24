@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import useFileUploader from '../../../hooks/useUploadShow';
 
 const Image = ({ props: { setGetImageData, setGetImageUrl } }) => {
- 
+
     const { fileData, uploadFileHandler, message, result } = useFileUploader();
-   
+    console.log(fileData)
     useEffect(() => {
         setGetImageData(fileData);
         setGetImageUrl(result?.data?.url)
@@ -33,11 +33,15 @@ const Image = ({ props: { setGetImageData, setGetImageUrl } }) => {
                     onDragOver={hightLightHandle}
                     onDragLeave={unHightLightHandel}
                     onDrop={imageDrop} id="uploaderFile">
-                    <form className="my-form">
-                        <p>Upload a file with the file dialog or by dragging and dropping images onto the dashed region</p>
-                        <input type="file" id="fileElem" multiple accept="image/*" />
 
-                    </form>
+                    <p>Upload a file with the file dialog or by dragging and dropping images onto the dashed region</p>
+
+
+                </div>
+                <div class="divider">OR</div>
+                <div>
+
+                    <input type="file" name="image_file" id="uploaderManually" className='form-control' onChange={(e)=>uploadFileHandler(e)} />
                 </div>
                 {message && <span className='label-text-alt text-red-500 mb-4'>  {message}</span>}
 
