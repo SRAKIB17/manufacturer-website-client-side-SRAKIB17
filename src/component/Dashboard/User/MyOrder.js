@@ -1,71 +1,22 @@
 import React from 'react';
+
+import { useQuery } from 'react-query'
+
+import axios from 'axios';
+import Loading from '../../Loading/Loading';
+import auth from '../../../firebase.init'
+
+import {useAuthState} from 'react-firebase-hooks/auth'
 import MyOrderShow from './MyOrderShow';
 
 const MyOrder = () => {
-    const myProduct = [
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black',
-            newI: true
-        },
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black',
-            newI: true
-        },
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black'
-        },
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black'
-        },
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black'
-        },
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black'
-        },
-    ]
+    const [user] = useAuthState(auth)
+    const { data, isLoading } = useQuery('MyOrder', () => axios.get(`http://localhost:5000/order?email=${user.email}`));
+    
+    if (isLoading) {
+        return <Loading />
+    }
+    const myProduct = data?.data || [];
     return (
         <div class="overflow-x-auto p-6">
             <table class="table table-zebra w-full">
@@ -73,16 +24,16 @@ const MyOrder = () => {
                     <tr>
                         <th></th>
                         <th></th>
-                        <th>NAME</th>
+                        <th>Product Name</th>
                         <th>CATEGORY</th>
-                        <th>PRICE</th>
-                        <th>Last Login</th>
+                        <th>Total PRICE</th>
+                        <th>Address</th>
                         <th>Favorite Color</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        myProduct.map((product, index) => <MyOrderShow product={product} index={index} key={product._id} />)
+                        myProduct.map((order, index) => <MyOrderShow order={order} index={index} key={order._id} />)
                     }
                 </tbody>
 

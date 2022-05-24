@@ -4,7 +4,7 @@ import useFileUploader from '../../../hooks/useUploadShow';
 const Image = ({ props: { setGetImageData, setGetImageUrl } }) => {
 
     const { fileData, uploadFileHandler, message, result } = useFileUploader();
-    console.log(fileData)
+
     useEffect(() => {
         setGetImageData(fileData);
         setGetImageUrl(result?.data?.url)

@@ -1,23 +1,40 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import Shipped from './Shiped';
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import Loading from '../Loading/Loading';
+import { useParams } from 'react-router-dom'
 
 const Purchase = () => {
-    const product = {
-        name: 'Hummingbird Printed Sweater',
-        image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-        short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-        minimum_quantity: 4,
-        total_quantity: 300,
-        price: 29,
-        discount_price: 20,
-        category: 'black'
-    }
     const quantityRef = useRef();
-    const [productSet, setProductSet]= useState(false)
-    useEffect(()=>{
-        quantityRef.current.value = product.minimum_quantity
-    },[])
+    const [productSet, setProductSet] = useState(false)
+    const { id } = useParams();
+
+
+    const { data, isLoading } = useQuery('Purchase', () => axios.get(`http://localhost:5000/product/${id}`));
+
+    if (isLoading) {
+        return <Loading />
+    }
+    const minimumQ = data?.data?.minimum_quantity;
+
+
+
+
+
+    // const product = {
+    //     name: 'Hummingbird Printed Sweater',
+    //     image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
+    //     short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+    //     minimum_quantity: 4,
+    //     total_quantity: 300,
+    //     price: 29,
+    //     discount_price: 20,
+    //     category: 'black'
+    // }
+    const product = data?.data;
+
 
     const increaseDecreaseHandle = (method) => {
         const quantityParse = Number(quantityRef.current.value)
@@ -28,8 +45,8 @@ const Purchase = () => {
             if (quantityParse > Number(product?.minimum_quantity)) {
                 quantityRef.current.value = quantityParse - 1;
             }
-            else{
-                toast.error('You should add minimum '+product?.minimum_quantity+' quantity')
+            else {
+                toast.error('You should add minimum ' + product?.minimum_quantity + ' quantity')
             }
         }
 
@@ -63,16 +80,16 @@ const Purchase = () => {
                         <div className='mt-4 mb-4 flex items-center'>
                             <button onClick={() => increaseDecreaseHandle('dec')} className='btn text-2xl mr-2'>-</button>
 
-                            <input ref={quantityRef} type="number" className="input input-bordered input-accent mb-2 p-2 w-20 textareaScroll text-2xl" name="" id="" />
+                            <input ref={quantityRef} value={minimumQ} type="number" className="input input-bordered input-accent mb-2 p-2 w-20 textareaScroll text-2xl" name="" id="" />
 
                             <button onClick={() => increaseDecreaseHandle('inc')} className='btn text-2xl ml-2'>+</button>
                         </div>
-                        
-                        <label for="shippedProduct" onClick={()=>setProductSet(true)} class="btn btn-secondary text-white">Buy Now</label>
+
+                        <label for="shippedProduct" onClick={() => setProductSet(true)} class="btn btn-secondary text-white">Buy Now</label>
                     </div>
-                   {
-                       productSet &&  <Shipped product={{product, quantityRef, setProductSet}}/>
-                   }
+                    {
+                        productSet && <Shipped product={{ product, quantityRef, setProductSet }} />
+                    }
                 </div>
 
             </div>

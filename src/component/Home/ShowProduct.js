@@ -5,13 +5,13 @@ const ShowProduct = ({ product: { _id,category, image, short_description, minimu
     const navigate = useNavigate()
     return (
 
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src={image} alt="Shoes" className='' /></figure>
+        <div className="card bg-base-100 shadow-xl h-full">
+            <figure><img src={image} alt="Shoes" className='p-2 w-[250px] h-[250px]' /></figure>
             <div className="card-body">
                 <h2 className="card-title">
                     {name}
                     {
-                        newI ? <div className="badge badge-secondary">NEW</div> : ''
+                        newI==='true' ? <div className="badge badge-secondary">NEW</div> : ''
                     }
                 </h2>
                 <p>{short_description.slice(0, 50)}...</p>

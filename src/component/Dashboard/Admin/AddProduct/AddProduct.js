@@ -7,6 +7,8 @@ import Category from './Category';
 import Description from './Description';
 import AllQuantity from './AllQuantity';
 import Image from './Image';
+import axios from 'axios';
+import {toast} from 'react-toastify';
 
 const AddProduct = () => {
 
@@ -17,16 +19,16 @@ const AddProduct = () => {
 
 
 
-
-    const aa = {
-        newI: true
-    }
-
-    const onSubmit = async (data) => {
-        const ProductData = { ...data, image: getImageUrl, short_description: shortDescriptionRef.current.value }
-        console.log(ProductData)
-
-        // reset()
+    const onSubmit = async (productInfo) => {
+        const ProductData = { ...productInfo, image: getImageUrl, short_description: shortDescriptionRef.current.value }
+        const {data} = await axios.post('http://localhost:5000/add-product',ProductData);
+        if(data.acknowledged){
+            toast.success('successfully add item')
+        }
+        else{
+            toast.error('Something is wrong')
+        }
+        reset()
     }
     return (
         <div className='flex md:flex-row flex-col-reverse'>

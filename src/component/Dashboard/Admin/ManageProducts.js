@@ -1,44 +1,25 @@
 import React from 'react';
+
+import { useQuery } from 'react-query'
+
+import axios from 'axios';
+import Loading from '../../Loading/Loading';
+import auth from '../../../firebase.init'
+
+import { useAuthState } from 'react-firebase-hooks/auth'
+
+
 import deleteP from '../svg/delete.svg'
 import edit from '../svg/edit.svg'
 const ManageProducts = () => {
 
-    const products = [
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black',
-            newI: true
-        },
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black',
-            newI: true
-        },
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-            minimum_quantity: 4,
-            total_quantity: 300,
-            price: 29,
-            discount_price: 20,
-            category: 'black',
-            newI: true
-        },
+    const [user] = useAuthState(auth);
+    const { data, isLoading } = useQuery('adminAllProduct', () => axios.get(`http://localhost:5000/all-order?email=${user.email}`));
 
-    ]
+    if (isLoading) {
+        return <Loading />
+    }
+    const allProducts = data?.data || [];
     return (
         <div class="overflow-x-auto p-6">
             <table class="table table-zebra w-full">
@@ -58,7 +39,7 @@ const ManageProducts = () => {
                 </thead>
                 <tbody>
                     {
-                        products.map((product, index) =>
+                        allProducts.map((product, index) =>
                             <>
                                 <tr key={product._id}>
                                     <td>{index + 1}</td>

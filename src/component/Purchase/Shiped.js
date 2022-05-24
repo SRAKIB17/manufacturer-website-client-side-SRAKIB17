@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { get, useForm } from "react-hook-form";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 
-const Shipped = ({ product:{product, quantityRef, setProductSet} }) => {
-    console.log(quantityRef.current.value)
+const Shipped = ({ product: { product, quantityRef, setProductSet } }) => {
 
+    const addressRef = useRef()
     const [user] = useAuthState(auth)
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
 
-
-    const onSubmit = async data => {
-        setProductSet(false);
-        toast.success('Successfully Placed Order')
+    const onSubmit = async order => {
+        const orderBody = {
+            ...order,
+            address: addressRef.current.value,
+            name: user?.displayName,
+            email: user?.email,
+            orderId: product?._id,
+            quantity: quantityRef.current.value
+        }
+        const { data } = await axios.post('http://localhost:5000/order', orderBody);
+        if (data.acknowledged) {
+            toast.success('Successfully Placed Order')
+            setProductSet(false)
+        }
+        else {
+            toast.error('Something is wrong')
+        }
     }
 
     const heightAutoHandle = (e) => {
@@ -68,12 +82,13 @@ const Shipped = ({ product:{product, quantityRef, setProductSet} }) => {
 
                             })}
                             placeholder="Phone Number"
-                            className="input input-bordered input-accent  m-2 w-full max-w-xs w-full"
+                            className="input input-bordered input-accent  m-2 max-w-xs w-full"
                         />
                         {errors.tel?.type === 'required' && <span className="label-text-alt text-red-500">{errors.tel.message}</span>}
                         {errors.tel?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.tel.message}</span>}
 
                         <textarea
+                            ref={addressRef}
                             // {...register("address", {
                             //     required: {
                             //         value: true,
@@ -81,7 +96,7 @@ const Shipped = ({ product:{product, quantityRef, setProductSet} }) => {
                             //     }
                             // })}
                             placeholder="Address"
-                            className="input input-bordered input-accent mt-2 mb-2 p-2 w-full textareaScroll"
+                            className="input input-bordered input-accent mt-2 m-2 p-2 w-full textareaScroll"
 
                             onChange={onchangeInput}
                             onInput={onchangeInput}
@@ -95,7 +110,7 @@ const Shipped = ({ product:{product, quantityRef, setProductSet} }) => {
 
                         />
                         {errors.address?.type === 'required' && <span className='label-text-alt text-red-500'> {errors.address.message}</span>}
-                        <input className=' max-w-xs btn btn-secondary text-white w-full p-3' type="submit" value="Place Order" />
+                        <input className=' max-w-xs btn btn-secondary text-white w-full p-3 m-2' type="submit" value="Place Order" />
 
                     </form>
                 </div>

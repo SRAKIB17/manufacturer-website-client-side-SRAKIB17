@@ -1,17 +1,25 @@
 import React from 'react';
 
+import { useQuery } from 'react-query'
+
+import axios from 'axios';
+import Loading from '../../Loading/Loading';
+import auth from '../../../firebase.init'
+
+import { useAuthState } from 'react-firebase-hooks/auth'
+
+import OrderShow from './OrderShow';
 
 const ManageAllOrders = () => {
-    const myProduct = [
-        {
-            name: 'Hummingbird Printed Sweater',
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            total_price: 29,
-            userMail: 'rakibulsscreojdflsdf'
+    const [user] = useAuthState(auth)
+    const { data, isLoading } = useQuery('adminAllOrder', () => axios.get(`http://localhost:5000/all-order?email=${user.email}`));
 
-        },
-        
-    ]
+    if (isLoading) {
+        return <Loading />
+    }
+    const allOrder = data?.data || [];
+    console.log(allOrder)
+    
     return (
         <div class="overflow-x-auto p-6">
             <table class="table table-zebra w-full">
@@ -19,32 +27,26 @@ const ManageAllOrders = () => {
                     <tr>
                         <th></th>
                         <th></th>
-                        <th>NAME</th>
+                        <th>Product Name</th>
                         <th>CATEGORY</th>
-                        <th>PRICE</th>
-                        <th>Last Login</th>
+                        <th>Total PRICE</th>
+                        <th>Address</th>
                         <th>Favorite Color</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        // myProduct.map((product, index) => <MyOrderShow product={product} index={index} key={product._id} />)
+                        allOrder.map((order, index) => <OrderShow order={order} index={index} key={order._id} />)
                     }
                 </tbody>
-                {/* <tr>
-                    <th>{index + 1}</th>
-                    <td><img src={image} className='w-8 md:w-10 rounded-full' alt="" /></td>
-                    <td>{name.slice(0, 20)}...</td>
-                    <td>{category}</td>
-                    <td>{discount_price}</td>
-                    <td>12/16/2020</td>
-                    <td>Blue</td>
-                </tr> */}
+
             </table>
 
         </div>
 
     );
 };
+
+
 
 export default ManageAllOrders;

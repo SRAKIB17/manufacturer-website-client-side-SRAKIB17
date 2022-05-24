@@ -4,16 +4,16 @@ import { useQuery } from 'react-query'
 
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
-import auth from '../../../firebase.init'
+
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 
 
-const MyOrderShow = ({ order, index }) => {
-
-    const {orderId,quantity, address } = order
+const OrderShow = ({ order, index }) => {
     
-    const { data, isLoading } = useQuery('SpecificOrder', () => axios.get(`http://localhost:5000/product/${orderId}`));
+    const {orderId,quantity, address } = order;
+    console.log(orderId)
+    const { data, isLoading } = useQuery('specificAllOrder', () => axios.get(`http://localhost:5000/product/${orderId}`));
     const { name, image, category,discount_price } = data?.data || {}
     if (isLoading) {
         return <Loading />
@@ -33,4 +33,5 @@ const MyOrderShow = ({ order, index }) => {
     );
 };
 
-export default MyOrderShow;
+export default OrderShow;
+

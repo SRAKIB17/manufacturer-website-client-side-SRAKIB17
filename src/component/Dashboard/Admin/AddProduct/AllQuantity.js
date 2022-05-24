@@ -7,7 +7,7 @@ const AllQuantity = ({ register, errors }) => {
     //                     newI: true
     return (
         <div className=' max-w-xs w-full'>
-            <div className='flex'>
+            <div className='flex gap-1 m-2 w-full'>
                 <input
                     type='number'
                     {...register("price", {
@@ -18,7 +18,7 @@ const AllQuantity = ({ register, errors }) => {
 
                     })}
                     placeholder="Price"
-                    className="input input-bordered input-accent w-full m-2"
+                    className="input input-bordered input-accent w-full"
                 />
 
 
@@ -32,7 +32,7 @@ const AllQuantity = ({ register, errors }) => {
 
                     })}
                     placeholder="Discount Price"
-                    className="input input-bordered input-accent w-full m-2"
+                    className="input input-bordered input-accent w-full"
                 />
 
             </div>
@@ -44,17 +44,47 @@ const AllQuantity = ({ register, errors }) => {
 
             <input
                 type='number'
-                {...register("total_quantity", {
+                {...register("minimum_quantity", {
                     required: {
                         value: true,
-                        message: ' Quantity is required'
+                        message: ' Minimum quantity price is required'
                     }
 
                 })}
-                placeholder="Quantity"
+                placeholder="Minimum Quantity"
                 className="input input-bordered input-accent w-full m-2"
             />
-            {errors.total_quantity?.type === 'required' && <span className='label-text-alt text-red-500'> {errors.total_quantity.message}  </span>}
+            {errors.minimum_quantity?.type === 'required' && <span className='label-text-alt text-red-500'>  {errors.minimum_quantity.message}</span>}
+            <div className='flex gap-1'>
+                <div className='w-[50%]'>
+                    <input
+                        type='number'
+                        {...register("total_quantity", {
+                            required: {
+                                value: true,
+                                message: ' Quantity is required'
+                            }
+
+                        })}
+                        placeholder="Quantity"
+                        className="input input-bordered input-accent  m-2 w-full"
+                    />
+                    {errors.total_quantity?.type === 'required' && <span className='label-text-alt text-red-500'> {errors.total_quantity.message}  </span>}
+
+                </div>
+                <div className='w-[50%]'>
+                    <select name="" id="" className="input input-bordered input-accent m-2 w-full"
+                        {...register("newI")}
+                    >
+                        <option value={true}>New</option>
+                        <option value={false} selected={true}>Old</option>
+                    </select>
+
+                </div>
+            </div>
+
+
+
 
 
         </div>
