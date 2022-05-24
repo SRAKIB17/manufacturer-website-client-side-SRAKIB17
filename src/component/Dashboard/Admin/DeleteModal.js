@@ -5,15 +5,16 @@ import React from 'react';
 const DeleteModal = ({ setDelete: { setDelete, deleteP, refetch } }) => {
 
     const deleteHandle = async () => {
-        const { data } = await axios.delete(`http://localhost:5000/product/${deleteP}`);
-        console.log(data)
+        axios.delete(`http://localhost:5000/product/${deleteP}`)
+        .then(date => console.log(date))
+      
         // if (data.modifiedCount) {
         //     toast.success('successfully add item')
         // }
         // else {
         //     toast.error('Everything up-to-date')
         // }
-        console.log(deleteP)
+        console.log(deleteP);
     }
     return (
         <div>
