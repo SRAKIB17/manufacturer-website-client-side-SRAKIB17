@@ -9,14 +9,17 @@ import auth from '../../../firebase.init'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import ShowAllProduct from './ShowAllProduct';
 import EditProductModal from './EditProductModal';
+import DeleteModal from './DeleteModal';
 
 
 
 const ManageProducts = () => {
-    const [edit, setEdit] = useState(null)
-    const [deleteP, setDeleteP] = useState(null)
+    const [edit, setEdit] = useState(null);
+    const [deleteP, setDelete] = useState(null);
     const [user] = useAuthState(auth);
-    const { data, isLoading } = useQuery('adminAllProduct', () => axios.get(`http://localhost:5000/all-product?email=${user.email}`));
+    const { data, isLoading, refetch } = useQuery('adminAllProduct', () => axios.get(`http://localhost:5000/all-product?email=${user.email}`));
+
+   
 
     
 
@@ -26,9 +29,7 @@ const ManageProducts = () => {
     const allProducts = data?.data || [];
     
    
-    const deleteHandle = (id) =>{
-
-    }
+   
     return (
         <div class="overflow-x-auto p-6">
             <table class="table table-zebra w-full">
@@ -50,14 +51,17 @@ const ManageProducts = () => {
                     {
                         allProducts.map((product, index) =>
                             <>
-                                <ShowAllProduct setEdit={setEdit} product={product} index={index} key={product._id}/>
+                                <ShowAllProduct setEdit={setEdit} setDelete={setDelete} product={product} index={index} key={product._id}/>
                             </>)
                     }
                 </tbody>
 
             </table>
             {
-                edit && <EditProductModal key={edit} setEdit={{setEdit, edit}}/>
+                deleteP && <DeleteModal key={deleteP} setDelete={{setDelete, deleteP, refetch}}/>
+            }
+            {
+                edit && <EditProductModal key={edit}  setEdit={{setEdit, edit, refetch}}/>
             }
         </div>
     );

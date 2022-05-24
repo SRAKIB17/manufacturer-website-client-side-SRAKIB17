@@ -1,6 +1,6 @@
 import React from 'react';
 import EditForm from './Edit/EditForm';
-const EditProductModal = ({setEdit:{setEdit, edit}}) => {
+const EditProductModal = ({setEdit:{setEdit, edit, refetch}}) => {
 
 
     return (
@@ -10,7 +10,7 @@ const EditProductModal = ({setEdit:{setEdit, edit}}) => {
             <div class="modal">
                 <div class="modal-box relative">
                     <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <EditForm setEdit={{setEdit, edit}}/>
+                    <EditForm setEdit={{setEdit, edit, refetch}}/>
                 </div>
             </div>
         </div >

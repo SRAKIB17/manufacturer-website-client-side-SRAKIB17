@@ -4,8 +4,8 @@ import edit from '../svg/edit.svg'
 
 
 
-const ShowAllProduct = ({ product, index ,setEdit}) => {
-    
+const ShowAllProduct = ({ product, index, setEdit, setDelete }) => {
+
     return (
 
         <tr key={product._id}>
@@ -22,8 +22,21 @@ const ShowAllProduct = ({ product, index ,setEdit}) => {
             </td>
             <td>{product.total_quantity} p</td>
             <td>{product.short_description.slice(0, 10)} ....</td>
-            <td><label onClick={()=>setEdit(product._id)} for="editModal" className='btn border-none bg-success btn-xs'><img src={edit} alt="" /></label></td>
-            <td><button className='btn border-none bg-red-600 btn-xs'><img src={deleteP} alt="" /></button></td>
+            <td><label
+                onClick={() => setEdit(product._id)}
+                for="editModal"
+                className='btn border-none bg-success btn-xs'>
+                <img src={edit} alt="" />
+            </label>
+            </td>
+
+            <td><label
+                for="deleteModal"
+                onClick={() => setDelete(product._id)}
+                className='btn border-none bg-red-600 btn-xs'>
+                <img src={deleteP} alt="" />
+            </label>
+            </td>
         </tr>
     );
 };

@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import { useQuery } from 'react-query';
 import Loading from '../../../Loading/Loading';
 
-const EditForm = ({ setEdit: { setEdit, edit } }) => {
+const EditForm = ({ setEdit: { setEdit, edit, refetch } }) => {
 
     console.log(edit)
     const shortDescriptionRef = useRef()
@@ -33,7 +33,7 @@ const EditForm = ({ setEdit: { setEdit, edit } }) => {
         }
         getEditProduct()
 
-    }, [edit,user])
+    }, [edit, user])
 
 
 
@@ -51,10 +51,12 @@ const EditForm = ({ setEdit: { setEdit, edit } }) => {
         else {
             toast.error('Everything up-to-date')
         }
-        reset()
+
+        refetch()
+        setEdit(null)
     }
 
-    const handleClearProduct = () =>{
+    const handleClearProduct = () => {
         setProduct(null)
     }
     return (
