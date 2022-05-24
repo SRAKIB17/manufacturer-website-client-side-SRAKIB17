@@ -31,7 +31,7 @@ const Login = () => {
                     name: user?.displayName,
                     img: user?.photoURL
                 }
-                await axios.put(`http://localhost:5000/user?email=${user?.email}}`,userInfo)
+                await axios.post(`http://localhost:5000/user?email=${user?.email}}`,userInfo)
             }
         }
         getUser()

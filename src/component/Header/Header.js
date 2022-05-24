@@ -34,7 +34,7 @@ const Header = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
-                    <a tabIndex="btn btn-ghost normal-case text-xl"><img src={logo} className="w-20" alt="" /></a>
+                    <a tabIndex="btn btn-ghost normal-case text-xl" className="ml-2" ><img src={logo} className="w-20" alt="" /></a>
                 </div>
 
                 <div className="navbar-start hidden lg:flex">

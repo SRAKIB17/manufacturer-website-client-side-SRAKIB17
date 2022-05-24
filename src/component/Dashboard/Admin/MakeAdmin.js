@@ -6,13 +6,14 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import auth from '../../../firebase.init';
 import MakeOrRemoveAdmin from './MakeOrRemoveAdmin';
 import deleteP from '../svg/delete.svg'
+import DeleteUserModal from './DeleteUserModal';
 
 const MakeAdmin = () => {
 
     const [makeAdmin, setMakeAdmin] = useState(null);
     const [deleteU, setDeleteU] = useState(null)
     const [user] = useAuthState(auth)
-    const { data, isLoading } = useQuery('newProduct', () => axios.get(`http://localhost:5000/user?email=${user?.email}&uid=${user?.uid}`));
+    const { data, isLoading, refetch } = useQuery('newProduct', () => axios.get(`http://localhost:5000/user?email=${user?.email}&uid=${user?.uid}`));
     if (isLoading) {
         return <Loading />
     }
@@ -44,10 +45,10 @@ const MakeAdmin = () => {
                                     <td>{u.email}</td>
                                     <td>
                                         {
-                                            u?.roll ?
+                                            u?.roll === 'admin' ?
                                                 <>
                                                     <label
-                                                        onClick={() => setMakeAdmin({ u:u, method: 'remove' })}
+                                                        onClick={() => setMakeAdmin({ u: u, method: 'remove' })}
                                                         for="makeAdmin"
 
                                                         className='btn-secondary btn btn-xs text-white'>
@@ -68,6 +69,7 @@ const MakeAdmin = () => {
                                     <td>
                                         <label
                                             for="deleteModal"
+                                            onClick={()=>(setDeleteU(u))}
 
                                             className='btn border-none bg-red-600 btn-xs'>
                                             <img src={deleteP} alt="" />
@@ -81,7 +83,10 @@ const MakeAdmin = () => {
             </table>
             <div>
                 {
-                    makeAdmin && <MakeOrRemoveAdmin props={{ makeAdmin, setMakeAdmin }} />
+                    makeAdmin && <MakeOrRemoveAdmin props={{ makeAdmin, setMakeAdmin, refetch }} />
+                }
+                {
+                    deleteU && <DeleteUserModal props={{deleteU, setDeleteU, refetch }} />
                 }
             </div>
         </div>

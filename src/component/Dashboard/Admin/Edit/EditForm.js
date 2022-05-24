@@ -9,8 +9,8 @@ import AllQuantity from './AllQuantity';
 import Image from './Image';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useQuery } from 'react-query';
-import Loading from '../../../Loading/Loading';
+
+
 
 const EditForm = ({ setEdit: { setEdit, edit, refetch } }) => {
 
