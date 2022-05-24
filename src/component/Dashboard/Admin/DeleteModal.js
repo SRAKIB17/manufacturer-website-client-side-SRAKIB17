@@ -1,28 +1,29 @@
 import axios from 'axios';
 import React from 'react';
+import { toast } from 'react-toastify';
 
-<button>Delete</button>
+
 const DeleteModal = ({ setDelete: { setDelete, deleteP, refetch } }) => {
 
     const deleteHandle = async () => {
-        axios.delete(`http://localhost:5000/product/${deleteP}`)
-        .then(date => console.log(date))
+        const {data} = await axios.delete(`http://localhost:5000/product/${deleteP}`)
+        console.log(data)
       
-        // if (data.modifiedCount) {
-        //     toast.success('successfully add item')
-        // }
-        // else {
-        //     toast.error('Everything up-to-date')
-        // }
-        console.log(deleteP);
+        if (data.deletedCount) {
+            toast.success('successfully delete item');
+            refetch()
+            setDelete(null)
+            
+        }
+        else {
+            toast.error('Something is wrong')
+        }
+        
     }
     return (
-        <div>
-
-
-
+        <div >
             <input type="checkbox" id="deleteModal" class="modal-toggle" />
-            <div class="modal">
+            <div class="modal" style={{zIndex: '20'}}>
                 <div class="modal-box">
                     <h3 class="font-bold text-2xl">Are You sure delete this product</h3>
 
@@ -34,7 +35,7 @@ const DeleteModal = ({ setDelete: { setDelete, deleteP, refetch } }) => {
                 </div>
             </div>
         </div >
-    );
+    );   
 };
 
 export default DeleteModal;

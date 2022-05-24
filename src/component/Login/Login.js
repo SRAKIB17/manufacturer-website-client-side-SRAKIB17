@@ -6,23 +6,35 @@ import google from './google.svg';
 import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle, useSendPasswordResetEmail, useUpdateProfile } from 'react-firebase-hooks/auth'
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { async } from '@firebase/util';
 
 const Login = () => {
     const [registerForm, setRegisterFrom] = useState(true)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [ResetPass, setResetPass] = useState(false);
-    
+
     const location = useLocation()
     const from = location?.state?.from || '/'
-    
 
 
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
     const [user] = useAuthState(auth)
     useEffect(() => {
-        if (user) {
-            navigate(from)
+        const getUser = async () => {
+            if (user) {
+                navigate(from)
+                const userInfo = {
+                    email: user?.email,
+                    uid: user?.uid,
+                    name: user?.displayName,
+                    img: user?.photoURL
+                }
+                await axios.put(`http://localhost:5000/user?email=${user?.email}}`,userInfo)
+            }
         }
+        getUser()
     }, [user, from, navigate])
     // -------------------------for create user by email password =-------------------------
     const [
@@ -39,7 +51,7 @@ const Login = () => {
         error1,
     ] = useSignInWithEmailAndPassword(auth);
 
-    const [signInWithGoogle, user3, loading3, error3] = useSignInWithGoogle(auth);
+    const [signInWithGoogle, userG, loading3, error3] = useSignInWithGoogle(auth);
 
 
     const [sendPasswordResetEmail, sending, error4] = useSendPasswordResetEmail(auth);
@@ -71,6 +83,9 @@ const Login = () => {
     else {
         getErr = ''
     }
+
+    // for google log in 
+
 
     const handleResetPass = () => {
         setResetPass(true)

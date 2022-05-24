@@ -1,31 +1,19 @@
+import axios from 'axios';
 import React from 'react';
+import { useQuery } from 'react-query';
 import { Carousel } from 'react-responsive-carousel';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Loading';
 import ReviewShow from './ReviewShow';
 
 const Review = () => {
-    const reviews = [{
-        img: 'https://demo.templatetrend.com/prestashop/PRS373/img/cms/mail.png',
-        name: "Yousuf",
-        text: 'reflsdflsdfj'
-    },
-    {
-        text: 'fsdLorem ipsum, dolor sit amet consectetur adipisicing elit. Eum doloremque autem, unde tempore labore velit accusantium iste nobis quam asperiores dolores veritatis, voluptatum ratione voluptates magni minima necessitatibus aliquid nam!fsdflsdfjsdlfjsdlfjsdlfsdjfsdlfsdfsdlf',
-        rating: 5
-    },
-    {
-        img: 'https://demo.templatetrend.com/prestashop/PRS373/img/cms/mail.png',
-        name: "Yousuf",
-        text: 'fsdfsdflsdfjsdlfjsdlfjsdlfsdjfsdlfsdfsdlf',
-        rating: 5
-    },
-    {
-        img: 'https://demo.templatetrend.com/prestashop/PRS373/img/cms/mail.png',
-        name: "Yousuf",
-        text: 'fsdfsdflsdfjsdlfjsdlfjsdlfsdjfsdlfsdfsdlf',
-        rating: 3
+    const { data, isLoading } = useQuery('review', () => axios.get(`http://localhost:5000/review?page=0&skip=5`));
+   
+    if (isLoading) {
+        return <Loading />
     }
-    ]
+    const reviews = data?.data || [];
+    
     return (
         <div className='mt-4 mb-4  bg-primary' >
             <div className='flex items-center text-white w-full justify-center m-6 p-6 flex-wrap md:flex-nowrap'>
@@ -34,7 +22,7 @@ const Review = () => {
                 </div>
                 <div class="carousel w-[50%]">
                     {
-                        reviews.map((review, index) => <ReviewShow review={review} index={index}/>)
+                        reviews.map((review, index) => <ReviewShow review={review} key={review._id} index={index} />)
                     }
                 </div>
             </div>

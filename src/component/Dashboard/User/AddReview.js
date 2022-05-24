@@ -2,18 +2,14 @@ import React, { useRef } from 'react';
 import { get, useForm } from "react-hook-form";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const AddReview = () => {
     const [user] = useAuthState(auth)
-    const reviewRef = useRef()
+    const reviewRef = useRef();
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
-    // {
-    //     img: ',
-    //         name: "Yousuf",
-    //             text: 'fsdfsdflsdfjsdlfjsdlfjsdlfsdjfsdlfsdfsdlf',
-    //                 rating: 5
-    // // }
 
     //---------------------auto matic ----------------------
     const heightAutoHandle = (e) => {
@@ -25,7 +21,7 @@ const AddReview = () => {
         heightAutoHandle(e)
     }
 
-    const onSubmit = async (data, e) => {
+    const onSubmit = async (GetData, e) => {
         let rating = e.target.ownerDocument.querySelectorAll('.mask-star-2');
         let ratingChecked;
         rating.forEach((value, index) => {
@@ -35,27 +31,29 @@ const AddReview = () => {
 
         })
 
-        const name = user.displayName;
-
         const review = {
             img: 'https://demo.templatetrend.com/prestashop/PRS373/img/cms/mail.png',
-            name: name,
-            text: data.review,
+            name: user.displayName,
+            email: user.email,
+            review: reviewRef.current.value,
             rating: ratingChecked
         }
-        reset()
+        const { data } = await axios.post('http://localhost:5000/review', review);
+        if (data.acknowledged) {
+            toast.success('successfully add item')
+            e.reset()
+            reviewRef.current.value = ''
+        }
+        else {
+            toast.error('Something is wrong')
+        }
     }
     return (
         <div className='flex justify-center'>
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col w-64 md:w-96 justify-center'>
                 <h1 className='text-2xl text-center p-4'>Add Review</h1>
                 <textarea
-                    {...register("review", {
-                        required: {
-                            value: true,
-                            message: 'Review is required'
-                        }
-                    })}
+                    ref={reviewRef}
                     placeholder="Review"
                     className="input input-bordered input-accent mb-2 p-2 w-full textareaScroll"
 
@@ -68,9 +66,9 @@ const AddReview = () => {
                     onKeyDown={heightAutoHandle}
                     onBlur={heightAutoHandle}
                     onKeyUp={heightAutoHandle}
+                    required
 
                 />
-                {errors.review?.type === 'required' && <span className='label-text-alt text-red-500'> {errors.review.message}</span>}
 
                 <div className='m-3'>
                     <div class="rating gap-1">

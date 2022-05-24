@@ -3,7 +3,7 @@ import bgFoote from '../../image/header/logo.png'
 
 const Footer = () => {
     return (
-        <div className='mt-4'>
+        <div className=''>
             <footer className="footer p-10 bg-primary text-white">
                 <div>
                     <img src={bgFoote} alt="" />

@@ -1,35 +1,24 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
+import Loading from '../../Loading/Loading';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import auth from '../../../firebase.init';
+import MakeOrRemoveAdmin from './MakeOrRemoveAdmin';
+import deleteP from '../svg/delete.svg'
 
 const MakeAdmin = () => {
 
-    const users = [
-        {
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            name: 'werwerwerwer',
-            email: 'rerererewr'
-        },
-        {
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            name: 'werwerwerwer',
-            email: 'rerererewr'
-        },
-        {
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            name: 'werwerwerwer',
-            email: 'rerererewr'
-        },
-        {
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            name: 'werwerwerwer',
-            email: 'rerererewr'
-        },
-        {
-            image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-            name: 'werwerwerwer',
-            email: 'rerererewr'
-        },
+    const [makeAdmin, setMakeAdmin] = useState(null);
+    const [deleteU, setDeleteU] = useState(null)
+    const [user] = useAuthState(auth)
+    const { data, isLoading } = useQuery('newProduct', () => axios.get(`http://localhost:5000/user?email=${user?.email}&uid=${user?.uid}`));
+    if (isLoading) {
+        return <Loading />
+    }
+    const users = data?.data || [];
 
-    ]
+
     return (
         <div class="overflow-x-auto p-6">
             <table class="table table-zebra w-full">
@@ -41,7 +30,7 @@ const MakeAdmin = () => {
                         <th>Email</th>
                         <th>Access</th>
                         <th>Action</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -50,18 +39,51 @@ const MakeAdmin = () => {
                             <>
                                 <tr key={u._id}>
                                     <th>{index + 1}</th>
-                                    <td><img src={u.image} className='w-8 md:w-10 rounded-full' alt="" /></td>
-                                    <td>{u.name.slice(0, 20)}...</td>
+                                    <td><img src={u.img} className='w-8 md:w-10 rounded-full' alt="" /></td>
+                                    <td>{u.name}...</td>
                                     <td>{u.email}</td>
-                                    <td><button className='btn-secondary btn btn-xs text-white'>Make Admin</button></td>
-                                    <td><button className='btn bg-red-500 btn-xs text-white focus:bg-red-400 active:bg-red-500 border-none'>Delete</button></td>
+                                    <td>
+                                        {
+                                            u?.roll ?
+                                                <>
+                                                    <label
+                                                        onClick={() => setMakeAdmin({ u:u, method: 'remove' })}
+                                                        for="makeAdmin"
+
+                                                        className='btn-secondary btn btn-xs text-white'>
+                                                        Remove form Admin
+                                                    </label>
+                                                </> :
+                                                <>
+                                                    <label
+                                                        onClick={() => setMakeAdmin({ u: u, method: 'add' })}
+                                                        for="makeAdmin"
+
+                                                        className='btn-secondary btn btn-xs text-white'>
+                                                        Make Admin
+                                                    </label>
+                                                </>
+                                        }
+                                    </td>
+                                    <td>
+                                        <label
+                                            for="deleteModal"
+
+                                            className='btn border-none bg-red-600 btn-xs'>
+                                            <img src={deleteP} alt="" />
+                                        </label>
+                                    </td>
                                 </tr>
                             </>)
                     }
                 </tbody>
 
             </table>
-
+            <div>
+                {
+                    makeAdmin && <MakeOrRemoveAdmin props={{ makeAdmin, setMakeAdmin }} />
+                }
+            </div>
         </div>
     );
 };
