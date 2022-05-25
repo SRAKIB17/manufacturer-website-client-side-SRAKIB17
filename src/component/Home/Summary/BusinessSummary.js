@@ -43,9 +43,10 @@ const BusinessSummary = () => {
 
                 <div class="carousel w-full">
                     <div id="item1" class="carousel-item w-full">
-                        <div className='w-80 mx-auto'>
-                            <Customers props={customer} />
+                        <div className='mx-auto'>
+                            <Default props={defaultS} />
                         </div>
+
                     </div>
                     <div id="item2" class="carousel-item w-full">
                         <div className='mx-auto'>
@@ -53,14 +54,12 @@ const BusinessSummary = () => {
                         </div>
                     </div>
                     <div id="item3" class="carousel-item w-full">
-                        <div className='mx-auto'>
-                            <Default props={defaultS} />
+
+                        <div className='w-80 mx-auto'>
+                            <Customers props={customer} />
                         </div>
-
                     </div>
-                    <div id="item4" class="carousel-item w-full">
 
-                    </div>
                 </div>
                 <div class="flex justify-center w-full py-2 gap-2">
                     <a href="#item1" class="btn btn-xs">1</a>
@@ -70,7 +69,7 @@ const BusinessSummary = () => {
                 </div>
 
             </div>
-            
+
         </div>
     )
 };

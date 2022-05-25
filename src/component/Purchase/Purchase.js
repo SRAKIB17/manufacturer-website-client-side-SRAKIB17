@@ -28,6 +28,7 @@ const Purchase = () => {
     if (isLoading) {
         return <Loading />
     }
+    
     const minimumQ = data?.data?.minimum_quantity;
 
 
@@ -53,11 +54,14 @@ const Purchase = () => {
             quantityRef.current.value = quantityParse + 1;
         }
         else if (method === 'dec') {
-            if (quantityParse > Number(product?.minimum_quantity)) {
+            if (quantityParse > Number(product?.minimum_quantity || quantityParse <= Number(product?.total_quantity))) {
                 quantityRef.current.value = quantityParse - 1;
             }
             else {
                 toast.error('You should add minimum ' + product?.minimum_quantity + ' quantity')
+            }
+            if (quantityParse > Number(product?.total_quantity)) {
+                toast.error('You should add minimum ' + product?.total_quantity + ' quantity')
             }
         }
 

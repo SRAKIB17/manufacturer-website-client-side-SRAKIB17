@@ -25,27 +25,27 @@ const Default = ({ props: data }) => {
                         <tbody>
 
                             <tr>
-                                <th>1</th>
+
                                 <td>Customer  </td>
                                 <td>100+ </td>
 
                             </tr>
 
                             <tr class="active">
-                                <th>2</th>
+
                                 <td>Annual revenue</td>
                                 <td>120M+</td>
 
                             </tr>
 
                             <tr>
-                                <th>3</th>
+
                                 <td>Reviews</td>
                                 <td>33K+</td>
 
                             </tr>
                             <tr>
-                                <td>4</td>
+
                                 <td>Tools</td>
                                 <td>50+</td>
 
