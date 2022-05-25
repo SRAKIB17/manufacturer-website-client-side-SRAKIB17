@@ -1,0 +1,61 @@
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from 'recharts';
+import { LineChart, Line } from 'recharts';
+
+const Default = ({ props: data }) => {
+    return (
+
+
+        <div>
+            <h1 className='text-center text-white text-2xl m-2'>Total Review</h1>
+
+            <div className='flex gap-4 flex-col md:flex-row'>
+                <div>
+                    <BarChart width={600} height={300} data={data}>
+                        <XAxis dataKey="default" stroke="#8884d8" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend width={100} wrapperStyle={{ top: 5, right: 20, backgroundColor: '#f5f5f5', border: '1px solid #d5d5d5', borderRadius: 3, lineHeight: '40px' }} />
+                        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+                        <Bar dataKey="Total" fill="#8884d8" barSize={30} />
+                    </BarChart>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
+                        <tbody>
+
+                            <tr>
+                                <th>1</th>
+                                <td>Customer  </td>
+                                <td>100+ </td>
+
+                            </tr>
+
+                            <tr class="active">
+                                <th>2</th>
+                                <td>Annual revenue</td>
+                                <td>120M+</td>
+
+                            </tr>
+
+                            <tr>
+                                <th>3</th>
+                                <td>Reviews</td>
+                                <td>33K+</td>
+
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Tools</td>
+                                <td>50+</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Default;

@@ -6,7 +6,7 @@ const ShowProduct = ({ product: { _id,category, image, short_description, minimu
     return (
 
         <div className="card bg-base-100 shadow-xl h-full">
-            <figure><img src={image} alt="Shoes" className='p-2 w-[250px] h-[250px]' /></figure>
+            <figure><img src={image} alt="Shoes" className='p-2 w-[250px] h-[250px] mt-4' /></figure>
             <div className="card-body">
                 <h2 className="card-title">
                     {name}
