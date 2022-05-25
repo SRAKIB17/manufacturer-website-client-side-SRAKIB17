@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useQuery } from 'react-query';
 import { signOut } from 'firebase/auth';
 import Loading from '../../Loading/Loading';
+import profile from '../../../image/profile/headerProfile.svg';
 
 const AddReview = () => {
     const [user] = useAuthState(auth)
@@ -48,7 +49,7 @@ const AddReview = () => {
         })
 
         const review = {
-            img: 'https://demo.templatetrend.com/prestashop/PRS373/img/cms/mail.png',
+            img: user.photoURL|| profile,
             name: user.displayName,
             email: user.email,
             review: reviewRef.current.value,

@@ -16,6 +16,8 @@ import MakeAdmin from './component/Dashboard/Admin/MakeAdmin';
 import ManageProducts from './component/Dashboard/Admin/ManageProducts';
 import ManageAllOrders from './component/Dashboard/Admin/ManageAllOrders';
 import useCheckAdmin from './component/hooks/useCheckAdmin';
+import Admin from './component/Admin';
+import NoteFound from './component/NoteFound/NoteFound';
 
 function App() {
   const { admin } = useCheckAdmin()
@@ -27,6 +29,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/about' element={<Admin />} />
         <Route path='/purchase/:id' element={<Private><Purchase /></Private>} />
 
         <Route path='/dashboard' element={<Private><Dashboard /></Private>}>
@@ -45,6 +48,7 @@ function App() {
             </>
           }
         </Route>
+        <Route path='*' element={<NoteFound />} />
 
       </Routes>
       <Footer />

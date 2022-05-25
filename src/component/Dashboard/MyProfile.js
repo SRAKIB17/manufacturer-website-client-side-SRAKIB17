@@ -69,7 +69,7 @@ const MyProfile = () => {
                                 </tr>
                                 <tr>
                                     <th>Roll: </th>
-                                    <td>{admin.admin?'Admin':'User'}</td>
+                                    <td>{admin?.admin?'Admin':'User'}</td>
 
 
                                 </tr>

@@ -20,6 +20,7 @@ const Header = () => {
                         </label>
                         <ul tabIndex="0" className="menu menu-compact dropdown-content text-black mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li><Link to='/'> Home</Link></li>
+                            <li><Link to='/about'> My Portfolio</Link></li>
                             {
                                 user?.uid ?
                                     <>
@@ -41,6 +42,8 @@ const Header = () => {
                 <div className="navbar-start hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
                         <li><Link to='/'> Home</Link></li>
+                        <li><Link to='/about'> My Portfolio</Link></li>
+
                         {
                             user?.uid ?
                                 <>
@@ -66,7 +69,7 @@ const Header = () => {
                                 <input type="text" placeholder="Search" className="input input-bordered lg:static md:static lg:w-full absolute right-[170px]  w-40" />
                             </div>
                             {
-                                user ? <>
+                                user?.photoURL ? <>
                                     <div className="dropdown dropdown-end">
                                         <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                                             <div className=" avatar online rounded-full">

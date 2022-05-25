@@ -2,18 +2,26 @@ import axios from 'axios';
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const MakeOrRemoveAdmin = ({ props: { makeAdmin, setMakeAdmin,refetch } }) => {
+const MakeOrRemoveAdmin = ({ props: { makeAdmin, setMakeAdmin, refetch } }) => {
 
     const { method, u: { email, _id } } = makeAdmin;
     const makeAdminHandle = async () => {
         if (method === 'add') {
-            const { data } = await axios.put(`http://localhost:5000/modify-user/${_id}?method=add`)
+            const { data } = await axios.put(`http://localhost:5000/modify-user/${_id}?method=remove`, {}, {
+                headers: {
+                    'authorize': `token ${localStorage.getItem('tokenVerify')}`
+                }
+            })
             if (data.modifiedCount) {
                 toast.success('Successfully make admin')
             }
         }
         else if (method === 'remove') {
-            const { data } = await axios.put(`http://localhost:5000/modify-user/${_id}?method=remove`)
+            const { data } = await axios.put(`http://localhost:5000/modify-user/${_id}?method=remove`, {}, {
+                headers: {
+                    'authorize': `token ${localStorage.getItem('tokenVerify')}`
+                }
+            })
             if (data.modifiedCount) {
                 toast.success('Successfully remove admin')
             }

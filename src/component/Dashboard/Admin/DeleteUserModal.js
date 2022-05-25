@@ -7,7 +7,12 @@ const DeleteUserModal = ({ props: { deleteU, setDeleteU, refetch } }) => {
     const { _id } = deleteU;
     const makeAdminHandle = async () => {
 
-        const { data } = await axios.delete(`http://localhost:5000/user/${_id}`);
+        const { data } = await axios.delete(`http://localhost:5000/user/${_id}`, {
+            headers: {
+                'authorize': `token ${localStorage.getItem('tokenVerify')}`
+            }
+        });
+        console.log(data)
 
         if (data.deletedCount) {
             toast.success('Successfully delete user')

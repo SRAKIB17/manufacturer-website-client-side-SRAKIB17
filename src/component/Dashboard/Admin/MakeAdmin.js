@@ -8,13 +8,24 @@ import MakeOrRemoveAdmin from './MakeOrRemoveAdmin';
 import deleteP from '../svg/delete.svg'
 import DeleteUserModal from './DeleteUserModal';
 import profile from '../../../image/profile/profile.svg'
+import { signOut } from 'firebase/auth';
 
 const MakeAdmin = () => {
 
     const [makeAdmin, setMakeAdmin] = useState(null);
     const [deleteU, setDeleteU] = useState(null)
     const [user] = useAuthState(auth)
-    const { data, isLoading, refetch } = useQuery('newProduct', () => axios.get(`http://localhost:5000/user?email=${user?.email}&uid=${user?.uid}`));
+    const { data, isLoading, refetch, error } = useQuery('newProduct', () => axios.get(`http://localhost:5000/user?email=${user?.email}`,
+        {
+            headers: {
+                'authorize': `token ${localStorage.getItem('tokenVerify')}`
+            }
+        }));
+    if (error) {
+        if (error.response.status !== 200) {
+            signOut(auth)
+        }
+    }
     if (isLoading) {
         return <Loading />
     }
@@ -42,7 +53,7 @@ const MakeAdmin = () => {
                                 <tr key={u._id}>
                                     <th>{index + 1}</th>
                                     <td>
-                                        <img src={u.img?u.img: profile} className='w-8 md:w-10 rounded-full' alt="" />
+                                        <img src={u.img ? u.img : profile} className='w-8 md:w-10 rounded-full' alt="" />
                                     </td>
                                     <td>{u.name}...</td>
                                     <td>{u.email}</td>
