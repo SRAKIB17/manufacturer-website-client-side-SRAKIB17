@@ -7,6 +7,7 @@ import auth from '../../../firebase.init';
 import MakeOrRemoveAdmin from './MakeOrRemoveAdmin';
 import deleteP from '../svg/delete.svg'
 import DeleteUserModal from './DeleteUserModal';
+import profile from '../../../image/profile/profile.svg'
 
 const MakeAdmin = () => {
 
@@ -40,7 +41,9 @@ const MakeAdmin = () => {
                             <>
                                 <tr key={u._id}>
                                     <th>{index + 1}</th>
-                                    <td><img src={u.img} className='w-8 md:w-10 rounded-full' alt="" /></td>
+                                    <td>
+                                        <img src={u.img?u.img: profile} className='w-8 md:w-10 rounded-full' alt="" />
+                                    </td>
                                     <td>{u.name}...</td>
                                     <td>{u.email}</td>
                                     <td>
@@ -69,7 +72,7 @@ const MakeAdmin = () => {
                                     <td>
                                         <label
                                             for="deleteModal"
-                                            onClick={()=>(setDeleteU(u))}
+                                            onClick={() => (setDeleteU(u))}
 
                                             className='btn border-none bg-red-600 btn-xs'>
                                             <img src={deleteP} alt="" />
@@ -86,7 +89,7 @@ const MakeAdmin = () => {
                     makeAdmin && <MakeOrRemoveAdmin props={{ makeAdmin, setMakeAdmin, refetch }} />
                 }
                 {
-                    deleteU && <DeleteUserModal props={{deleteU, setDeleteU, refetch }} />
+                    deleteU && <DeleteUserModal props={{ deleteU, setDeleteU, refetch }} />
                 }
             </div>
         </div>

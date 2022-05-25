@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { async } from '@firebase/util';
+import useToken from './useToken';
 
 const Login = () => {
     const [registerForm, setRegisterFrom] = useState(true)
@@ -17,25 +18,6 @@ const Login = () => {
     const location = useLocation()
     const from = location?.state?.from || '/'
 
-
-
-    const navigate = useNavigate();
-    const [user] = useAuthState(auth)
-    useEffect(() => {
-        const getUser = async () => {
-            if (user) {
-                navigate(from)
-                const userInfo = {
-                    email: user?.email,
-                    uid: user?.uid,
-                    name: user?.displayName,
-                    img: user?.photoURL
-                }
-                await axios.post(`http://localhost:5000/user?email=${user?.email}}`,userInfo)
-            }
-        }
-        getUser()
-    }, [user, from, navigate])
     // -------------------------for create user by email password =-------------------------
     const [
         createUserWithEmailAndPassword,
@@ -57,6 +39,28 @@ const Login = () => {
     const [sendPasswordResetEmail, sending, error4] = useSendPasswordResetEmail(auth);
 
     const [updateProfile, updating, error5] = useUpdateProfile(auth);
+
+    const navigate = useNavigate();
+    const [user] = useAuthState(auth);
+    const token = useToken(user || userG)
+
+    useEffect(() => {
+        const getUser = async () => {
+            if (token) {
+                navigate(from)
+                const userInfo = {
+                    email: user?.email,
+                    uid: user?.uid,
+                    name: user?.displayName,
+                    img: user?.photoURL
+                }
+
+                const { data } = await axios.put(`http://localhost:5000/user?email=${user?.email}}`, userInfo);
+            }
+        }
+        getUser()
+    }, [user, from, navigate, token])
+
 
     const onSubmit = async data => {
         const { email, password, name } = data

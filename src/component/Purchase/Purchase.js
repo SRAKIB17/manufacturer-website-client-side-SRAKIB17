@@ -12,7 +12,12 @@ const Purchase = () => {
     const { id } = useParams();
 
 
-    const { data, isLoading } = useQuery('Purchase', () => axios.get(`http://localhost:5000/product/${id}`));
+    
+    const { data, isLoading } = useQuery('Purchase', () => axios.get(`http://localhost:5000/product/${id}`,{
+        headers :{
+            'authorize': `token ${localStorage.getItem('tokenVerify')}`
+        }
+    }));
 
     if (isLoading) {
         return <Loading />
@@ -33,7 +38,7 @@ const Purchase = () => {
     //     discount_price: 20,
     //     category: 'black'
     // }
-    const product = data?.data;
+    const product = data?.data || {};
 
 
     const increaseDecreaseHandle = (method) => {
