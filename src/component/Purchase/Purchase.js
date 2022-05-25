@@ -28,41 +28,31 @@ const Purchase = () => {
     if (isLoading) {
         return <Loading />
     }
-    
+
     const minimumQ = data?.data?.minimum_quantity;
 
 
-
-
-
-    // const product = {
-    //     name: 'Hummingbird Printed Sweater',
-    //     image: 'https://demo.templatetrend.com/prestashop/PRS373/img/p/3/4/34-large_default.jpg',
-    //     short_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-    //     minimum_quantity: 4,
-    //     total_quantity: 300,
-    //     price: 29,
-    //     discount_price: 20,
-    //     category: 'black'
-    // }
     const product = data?.data || {};
 
 
     const increaseDecreaseHandle = (method) => {
         const quantityParse = Number(quantityRef.current.value)
         if (method === 'inc') {
-            quantityRef.current.value = quantityParse + 1;
+            if (quantityParse >= Number(product?.total_quantity)) {
+                toast.error('You should add minimum ' + product?.total_quantity + ' quantity')
+            }
+            else {
+                quantityRef.current.value = quantityParse + 1;
+            }
         }
         else if (method === 'dec') {
-            if (quantityParse > Number(product?.minimum_quantity || quantityParse <= Number(product?.total_quantity))) {
+            if (quantityParse > Number(product?.minimum_quantity)) {
                 quantityRef.current.value = quantityParse - 1;
             }
             else {
                 toast.error('You should add minimum ' + product?.minimum_quantity + ' quantity')
             }
-            if (quantityParse > Number(product?.total_quantity)) {
-                toast.error('You should add minimum ' + product?.total_quantity + ' quantity')
-            }
+
         }
 
     }

@@ -22,7 +22,11 @@ const Shipped = ({ product: { product, quantityRef, setProductSet } }) => {
             orderId: product?._id,
             quantity: quantityRef.current.value
         }
-        const { data } = await axios.post('http://localhost:5000/order', orderBody);
+        const { data } = await axios.post('http://localhost:5000/order', orderBody, {
+            headers: {
+                'authorize': `token ${localStorage.getItem('tokenVerify')}`
+            }
+        });
         if (data.acknowledged) {
             toast.success('Successfully Placed Order')
             setProductSet(false)

@@ -10,7 +10,9 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { signOut } from 'firebase/auth';
 
 
-const MyOrderShow = ({ order, index }) => {
+const MyOrderShow = ({ order, index ,cancelOrder}) => {
+
+
 
     const { orderId, quantity, address } = order
 
@@ -26,7 +28,8 @@ const MyOrderShow = ({ order, index }) => {
             signOut(auth)
         }
     }
-    const { name, image, category, discount_price } = data?.data || {}
+    const orderFind = data?.data || {}
+    const { name, image, category, discount_price } = orderFind;
     if (isLoading) {
         return <Loading />
     }
@@ -40,7 +43,16 @@ const MyOrderShow = ({ order, index }) => {
             <td>{category}</td>
             <td>{TotalPrice}</td>
             <td>{address.slice(0, 20)}..</td>
-            <td></td>
+            <td><button className='btn btn-success btn-xs text-white'>Pay Now</button></td>
+            <td>
+
+                <label
+                    for="cancelOrder"
+                   onClick={()=>cancelOrder(order._id)}
+                    className='btn border-none bg-red-600 btn-xs'>
+                    cancel
+                </label>
+            </td>
         </tr>
     );
 };

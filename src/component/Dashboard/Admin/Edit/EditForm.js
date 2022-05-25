@@ -28,7 +28,11 @@ const EditForm = ({ setEdit: { setEdit, edit, refetch } }) => {
 
     useEffect(() => {
         const getEditProduct = async () => {
-            const { data } = await axios.get(`http://localhost:5000/product-admin/${edit}?email=${user.email}`);
+            const { data } = await axios.get(`http://localhost:5000/product-admin/${edit}?email=${user.email}`, {
+                headers: {
+                    'authorize': `token ${localStorage.getItem('tokenVerify')}`
+                }
+            });
             setProduct(data)
         }
         getEditProduct()

@@ -69,12 +69,12 @@ const Header = () => {
                                 <input type="text" placeholder="Search" className="input input-bordered lg:static md:static lg:w-full absolute right-[170px]  w-40" />
                             </div>
                             {
-                                user?.photoURL ? <>
+                                user ? <>
                                     <div className="dropdown dropdown-end">
                                         <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                                             <div className=" avatar online rounded-full">
 
-                                                <img src={user?.photoURL} className='w-10' />
+                                                <img src={(user?.photoURL)?user.photoURL:profile} className='w-10' />
 
                                             </div>
                                         </label>

@@ -61,7 +61,7 @@ const AddReview = () => {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`
             }
         });
-        console.log(data)
+       
         if (data.acknowledged) {
             toast.success('successfully add item')
             e.reset()

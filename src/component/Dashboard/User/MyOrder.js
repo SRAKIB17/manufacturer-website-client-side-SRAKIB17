@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useQuery } from 'react-query'
 
@@ -9,10 +9,14 @@ import auth from '../../../firebase.init'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import MyOrderShow from './MyOrderShow';
 import { signOut } from 'firebase/auth';
+import CancelOrder from './CancelOrderModal';
 
 const MyOrder = () => {
     const [user] = useAuthState(auth)
-    const { data, isLoading, error } = useQuery('MyOrder', () => axios.get(`http://localhost:5000/order?email=${user.email}`, {
+
+    // for cancel 
+    const [cancelOrder, setCancelOrder] = useState(null)
+    const { data, isLoading, error, refetch } = useQuery('MyOrder', () => axios.get(`http://localhost:5000/order?email=${user.email}`, {
 
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
@@ -27,6 +31,8 @@ const MyOrder = () => {
         return <Loading />
     }
     const myProduct = data?.data || [];
+
+
     return (
         <div class="overflow-x-auto p-6">
             <table class="table table-zebra w-full">
@@ -38,17 +44,22 @@ const MyOrder = () => {
                         <th>CATEGORY</th>
                         <th>Total PRICE</th>
                         <th>Address</th>
-                        <th>Favorite Color</th>
+                        <th>Paid</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        myProduct.map((order, index) => <MyOrderShow order={order} index={index} key={order._id} />)
+                        myProduct.map((order, index) => <MyOrderShow cancelOrder={setCancelOrder} order={order} index={index} key={order._id} />)
                     }
                 </tbody>
 
             </table>
-
+            <div>
+                {
+                    cancelOrder && <CancelOrder cancelOrder={{setCancelOrder,cancelOrder, refetch}}/>
+                }
+            </div>
         </div>
 
     );
