@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import useCheckAdmin from '../hooks/useCheckAdmin';
 import './User/User.css'
 
 const Dashboard = () => {
+    const { admin } = useCheckAdmin()
     return (
         <div>
             <label for="dashboard" class=" swap swap-rotate lg:hidden m-4">
@@ -30,10 +32,14 @@ const Dashboard = () => {
                         <li><Link to='/dashboard/add-review'>Add Review</Link></li>
                         <li><Link to='/dashboard/my-order'>My Order</Link></li>
 
-                        <li><Link to='/dashboard/add-product'>Add Product</Link></li>
-                        <li><Link to='/dashboard/users'>All User</Link></li>
-                        <li><Link to='/dashboard/manage-products'>Manage Products</Link></li>
-                        <li><Link to='/dashboard/manage-orders'>Manage Orders</Link></li>
+                        {
+                            admin?.admin && <>
+                                <li><Link to='/dashboard/add-product'>Add Product</Link></li>
+                                <li><Link to='/dashboard/users'>All User</Link></li>
+                                <li><Link to='/dashboard/manage-products'>Manage Products</Link></li>
+                                <li><Link to='/dashboard/manage-orders'>Manage Orders</Link></li>
+                            </>
+                        }
                     </ul>
 
                 </div>

@@ -15,8 +15,10 @@ import AddProduct from './component/Dashboard/Admin/AddProduct/AddProduct';
 import MakeAdmin from './component/Dashboard/Admin/MakeAdmin';
 import ManageProducts from './component/Dashboard/Admin/ManageProducts';
 import ManageAllOrders from './component/Dashboard/Admin/ManageAllOrders';
+import useCheckAdmin from './component/hooks/useCheckAdmin';
 
 function App() {
+  const { admin } = useCheckAdmin()
   return (
     <div className='m-2 w-full overflow-hidden'>
 
@@ -28,15 +30,20 @@ function App() {
         <Route path='/purchase/:id' element={<Private><Purchase /></Private>} />
 
         <Route path='/dashboard' element={<Private><Dashboard /></Private>}>
-          <Route index element={<MyProfile/>}/>
-          <Route path='profile' element={<MyProfile/>}/>
-          <Route path='add-review' element={<AddReview/>}/>
-          <Route path='my-order' element={<MyOrder/>}/>
+          <Route index element={<MyProfile />} />
+          <Route path='profile' element={<MyProfile />} />
+          <Route path='add-review' element={<AddReview />} />
+          <Route path='my-order' element={<MyOrder />} />
 
-          <Route path='add-product' element={<AddProduct/>}/>
-          <Route path='users' element={<MakeAdmin/>}/>
-          <Route path='manage-products' element={<ManageProducts/>}/>
-          <Route path='manage-orders' element={<ManageAllOrders/>}/>
+          {
+            admin?.admin && <>
+              <Route path='add-product' element={<AddProduct />} />
+              <Route path='users' element={<MakeAdmin />} />
+              <Route path='manage-products' element={<ManageProducts />} />
+              <Route path='manage-orders' element={<ManageAllOrders />} />
+
+            </>
+          }
         </Route>
 
       </Routes>

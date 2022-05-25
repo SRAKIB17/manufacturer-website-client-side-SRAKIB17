@@ -4,6 +4,7 @@ import logo from '../../image/header/logo.png'
 import { signOut } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import profile from '../../image/profile/headerProfile.svg';
 
 const Header = () => {
     const [user] = useAuthState(auth);
@@ -31,7 +32,7 @@ const Header = () => {
                             }
 
 
-                            <li><a>Item 3</a></li>
+                            <li><Link to='/blog'>Blog</Link></li>
                         </ul>
                     </div>
                     <a tabIndex="btn btn-ghost normal-case text-xl" className="ml-2" ><img src={logo} className="w-20" alt="" /></a>
@@ -51,7 +52,8 @@ const Header = () => {
                                 </>
                         }
 
-                        <li><a>Item 3</a></li>
+                        <li><Link to='/blog'>Blog</Link></li>
+
                     </ul>
                 </div>
 
@@ -59,27 +61,36 @@ const Header = () => {
                 <div className="navbar-end">
                     <div className="navbar-end bg-primary">
 
-                        <div className="flex p-2 gap-2 text-black">
+                        <div className="flex p-2 gap-2 text-black items-center">
                             <div className="form-control">
                                 <input type="text" placeholder="Search" className="input input-bordered lg:static md:static lg:w-full absolute right-[170px]  w-40" />
                             </div>
-                            <div className="dropdown dropdown-end">
-                                <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
-                                    <div className="w-10 rounded-full">
-                                        <img src="https://api.lorem.space/image/face?hash=33791" />
-                                    </div>
-                                </label>
-                                <ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                                    <li>
-                                        <Link to='/dashboard/profile' className="justify-between">
-                                            Profile
+                            {
+                                user ? <>
+                                    <div className="dropdown dropdown-end">
+                                        <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+                                            <div className=" avatar online rounded-full">
 
-                                        </Link>
-                                    </li>
-                                    <li><Link to='/dashboard'>Dashboard</Link></li>
-                                    <li><button onClick={() => signOut(auth)}> Logout</button></li>
-                                </ul>
-                            </div>
+                                                <img src={user?.photoURL} className='w-10' />
+
+                                            </div>
+                                        </label>
+                                        <ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                                            <li>
+                                                <Link to='/dashboard/profile' className="justify-between">
+                                                    Profile
+
+                                                </Link>
+                                            </li>
+                                            <li><Link to='/dashboard'>Dashboard</Link></li>
+                                            <li><button onClick={() => signOut(auth)}> Logout</button></li>
+                                        </ul>
+                                    </div>
+                                </> :
+                                    <>
+                                        <Link to='/login'><img src={profile} alt="" /></Link>
+                                    </>
+                            }
                         </div>
                     </div>
                 </div>
