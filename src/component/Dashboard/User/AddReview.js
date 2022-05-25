@@ -4,6 +4,9 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useQuery } from 'react-query';
+import { signOut } from 'firebase/auth';
+import Loading from '../../Loading/Loading';
 
 const AddReview = () => {
     const [user] = useAuthState(auth)
@@ -11,6 +14,19 @@ const AddReview = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
 
+    const { data, isLoading, error } = useQuery('checkUser', () => axios.get(`http://localhost:5000/verify-user`, {
+        headers: {
+            'authorize': `token ${localStorage.getItem('tokenVerify')}`
+        }
+    }));
+    if (error) {
+        if (error.response.status !== 200) {
+            signOut(auth)
+        }
+    }
+    if (isLoading) {
+        return <Loading />
+    }
     //---------------------auto matic ----------------------
     const heightAutoHandle = (e) => {
         e.target.style.height = 'auto'
@@ -38,7 +54,13 @@ const AddReview = () => {
             review: reviewRef.current.value,
             rating: ratingChecked
         }
-        const { data } = await axios.post('http://localhost:5000/review', review);
+
+        const { data } = await axios.post('http://localhost:5000/review', review, {
+            headers: {
+                'authorize': `token ${localStorage.getItem('tokenVerify')}`
+            }
+        });
+        console.log(data)
         if (data.acknowledged) {
             toast.success('successfully add item')
             e.reset()

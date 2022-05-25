@@ -5,6 +5,8 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import Loading from '../Loading/Loading';
 import { useParams } from 'react-router-dom'
+import { signOut } from 'firebase/auth';
+import auth from '../../firebase.init';
 
 const Purchase = () => {
     const quantityRef = useRef();
@@ -12,13 +14,17 @@ const Purchase = () => {
     const { id } = useParams();
 
 
-    
-    const { data, isLoading } = useQuery('Purchase', () => axios.get(`http://localhost:5000/product/${id}`,{
-        headers :{
+
+    const { data, isLoading, error } = useQuery('Purchase', () => axios.get(`http://localhost:5000/product/${id}`, {
+        headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }
     }));
-
+    if (error) {
+        if (error.response.status !== 200) {
+            signOut(auth)
+        }
+    }
     if (isLoading) {
         return <Loading />
     }

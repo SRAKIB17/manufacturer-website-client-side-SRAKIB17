@@ -6,13 +6,23 @@ import axios from 'axios';
 import Loading from '../../Loading/Loading';
 import auth from '../../../firebase.init'
 
-import {useAuthState} from 'react-firebase-hooks/auth'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import MyOrderShow from './MyOrderShow';
+import { signOut } from 'firebase/auth';
 
 const MyOrder = () => {
     const [user] = useAuthState(auth)
-    const { data, isLoading } = useQuery('MyOrder', () => axios.get(`http://localhost:5000/order?email=${user.email}`));
-    
+    const { data, isLoading, error } = useQuery('MyOrder', () => axios.get(`http://localhost:5000/order?email=${user.email}`, {
+
+        headers: {
+            'authorize': `token ${localStorage.getItem('tokenVerify')}`
+        }
+    }));
+    if (error) {
+        if (error.response.status !== 200) {
+            signOut(auth)
+        }
+    }
     if (isLoading) {
         return <Loading />
     }

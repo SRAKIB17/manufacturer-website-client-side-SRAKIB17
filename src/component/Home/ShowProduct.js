@@ -14,7 +14,7 @@ const ShowProduct = ({ product: { _id,category, image, short_description, minimu
                         newI==='true' ? <div className="badge badge-secondary">NEW</div> : ''
                     }
                 </h2>
-                <p>{short_description.slice(0, 50)}...</p>
+                <p>{short_description?.slice(0, 50)}...</p>
                 <div>
                     <div className="text-xl card-actions justify-start mb-2">
                         <div>Price:</div>
