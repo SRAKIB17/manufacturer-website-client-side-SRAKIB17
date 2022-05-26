@@ -17,7 +17,7 @@ const ShowProduct = ({ product: { _id,category, image, short_description, minimu
                 <p>{short_description?.slice(0, 50)}...</p>
                 <div>
                     <div className="text-xl card-actions justify-start mb-2">
-                        <div>Price:</div>
+                        <div>Price:</div>Blogs
                         <div className='text-orange-500'><del>{price}</del></div>
                         <div>{discount_price}</div>
                         <div className='text-sm text-gray-500'>/pice</div>

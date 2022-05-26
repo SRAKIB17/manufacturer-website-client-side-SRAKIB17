@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 const MakeOrRemoveAdmin = ({ props: { makeAdmin, setMakeAdmin, refetch } }) => {
 
     const { method, u: { email, _id } } = makeAdmin;
+    console.log(_id)
     const makeAdminHandle = async () => {
         if (method === 'add') {
-            const { data } = await axios.put(`http://localhost:5000/modify-user/${_id}?method=remove`, {}, {
+            const { data } = await axios.put(`http://localhost:5000/modify-user/${_id}?method=add`, {}, {
                 headers: {
                     'authorize': `token ${localStorage.getItem('tokenVerify')}`
                 }

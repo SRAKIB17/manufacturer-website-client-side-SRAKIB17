@@ -55,6 +55,7 @@ const OrderShow = ({ order, index }) => {
                             <select name="status" ref={statusRef} id="" className='input input-bordered p-1  input-accent'>
                                 <option value="" disabled selected >{status}</option>
                                 <option disabled={(status === 'Refund') ? true : false} value="Refund" >Refund</option>
+                                <option disabled={(status === 'Approved') ? true : false} value="Approved" >Approved</option>
                                 <option disabled={(status === 'Pending') ? true : false} value="Pending">Pending</option>
                                 <option disabled={(status === 'Shipped') ? true : false} value="Shipped">Shipped</option>
                             </select>
