@@ -6,23 +6,23 @@ import Loading from "../Loading/Loading";
 
 
 const useCheckAdmin = () => {
-  
+
 
     const { data, isLoading, error } = useQuery('checkAdmin', () => axios.get(`http://localhost:5000/admin`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }
     }));
-   const admin = data?.data
+    const admin = data?.data
+    if (isLoading) {
+        return <Loading />
+    }
     if (error) {
         if (error.response.status !== 200) {
             signOut(auth)
         }
     }
-    if (isLoading) {
-        return <Loading />
-    }
-    return {admin};
+    return { admin };
 };
 
 export default useCheckAdmin;

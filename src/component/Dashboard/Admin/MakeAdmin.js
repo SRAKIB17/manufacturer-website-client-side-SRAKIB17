@@ -21,13 +21,13 @@ const MakeAdmin = () => {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`
             }
         }));
+    if (isLoading) {
+        return <Loading />
+    }
     if (error) {
         if (error.response.status !== 200) {
             signOut(auth)
         }
-    }
-    if (isLoading) {
-        return <Loading />
     }
     const users = data?.data || [];
 

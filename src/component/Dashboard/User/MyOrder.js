@@ -15,20 +15,21 @@ const MyOrder = () => {
     const [user] = useAuthState(auth)
 
     // for cancel 
-    const [cancelOrder, setCancelOrder] = useState(null)
+    const [cancelOrder, setCancelOrder] = useState(null);
+
     const { data, isLoading, error, refetch } = useQuery('MyOrder', () => axios.get(`http://localhost:5000/order?email=${user.email}`, {
 
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }
     }));
+    if (isLoading) {
+        return <Loading />
+    }
     if (error) {
         if (error.response.status !== 200) {
             signOut(auth)
         }
-    }
-    if (isLoading) {
-        return <Loading />
     }
     const myProduct = data?.data || [];
 
@@ -44,7 +45,7 @@ const MyOrder = () => {
                         <th>CATEGORY</th>
                         <th>Total PRICE</th>
                         <th>Address</th>
-                        <th>Paid</th>
+                        <th>Payment</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -55,9 +56,10 @@ const MyOrder = () => {
                 </tbody>
 
             </table>
+
             <div>
                 {
-                    cancelOrder && <CancelOrder cancelOrder={{setCancelOrder,cancelOrder, refetch}}/>
+                    cancelOrder && <CancelOrder cancelOrder={{ setCancelOrder, cancelOrder, refetch }} />
                 }
             </div>
         </div>

@@ -13,18 +13,18 @@ import { signOut } from 'firebase/auth';
 
 const ManageAllOrders = () => {
     const [user] = useAuthState(auth)
-    const { data, isLoading,error } = useQuery('adminAllOrder', () => axios.get(`http://localhost:5000/all-order?email=${user.email}`, {
+    const { data, isLoading, error } = useQuery('adminAllOrder', () => axios.get(`http://localhost:5000/all-order?email=${user.email}`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }
     }));
+    if (isLoading) {
+        return <Loading />
+    }
     if (error) {
         if (error.response.status !== 200) {
             signOut(auth)
         }
-    }
-    if (isLoading) {
-        return <Loading />
     }
     const allOrder = data?.data || [];
     console.log(allOrder)

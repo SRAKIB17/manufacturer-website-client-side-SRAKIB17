@@ -11,26 +11,26 @@ import UpdateForm from './UpdateProfile/UpdateForm';
 import useCheckAdmin from '../hooks/useCheckAdmin';
 
 const MyProfile = () => {
-    const {admin}= useCheckAdmin();
- 
+    const { admin } = useCheckAdmin();
+
     const [user] = useAuthState(auth)
 
     const [updateProfile, setUpdateProfile] = useState(null)
 
-    const { data, isLoading, error ,refetch } = useQuery('checkUser', () => axios.get(`http://localhost:5000/verify-user`, {
+    const { data, isLoading, error, refetch } = useQuery('checkUser', () => axios.get(`http://localhost:5000/verify-user`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }
     }));
+    if (isLoading) {
+        return <Loading />
+    }
+
     if (error) {
         if (error.response.status !== 200) {
             signOut(auth)
         }
     }
-    if (isLoading) {
-        return <Loading />
-    }
-    
 
     return (
         <div>
@@ -40,7 +40,7 @@ const MyProfile = () => {
                     <div class="avatar">
                         <div class="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             {
-                                user.photoURL ? <img src={user.photoURL} alt=''/> : <img src={profilePic} alt="" />
+                                user.photoURL ? <img src={user.photoURL} alt='' /> : <img src={profilePic} alt="" />
                             }
 
                         </div>
@@ -69,7 +69,7 @@ const MyProfile = () => {
                                 </tr>
                                 <tr>
                                     <th>Roll: </th>
-                                    <td>{admin?.admin?'Admin':'User'}</td>
+                                    <td>{admin?.admin ? 'Admin' : 'User'}</td>
 
 
                                 </tr>
@@ -85,7 +85,7 @@ const MyProfile = () => {
             </div>
             {/* for update profile  */}
             {
-                updateProfile && <UpdateForm props={{setUpdateProfile, refetch}}/>
+                updateProfile && <UpdateForm props={{ setUpdateProfile, refetch }} />
             }
         </div>
     );

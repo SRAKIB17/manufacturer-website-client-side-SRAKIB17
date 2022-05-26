@@ -21,6 +21,8 @@ const Header = () => {
                         <ul tabIndex="0" className="menu menu-compact dropdown-content text-black mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li><Link to='/'> Home</Link></li>
                             <li><Link to='/about'> My Portfolio</Link></li>
+                            <li><Link to='/blog'>Blog</Link></li>
+
                             {
                                 user?.uid ?
                                     <>
@@ -31,9 +33,6 @@ const Header = () => {
                                         <li><Link to='/login'> Login</Link></li>
                                     </>
                             }
-
-
-                            <li><Link to='/blog'>Blog</Link></li>
                         </ul>
                     </div>
                     <a tabIndex="btn btn-ghost normal-case text-xl" className="ml-2" ><img src={logo} className="w-20" alt="" /></a>
@@ -43,7 +42,7 @@ const Header = () => {
                     <ul className="menu menu-horizontal p-0">
                         <li><Link to='/'> Home</Link></li>
                         <li><Link to='/about'> My Portfolio</Link></li>
-
+                        <li><Link to='/blog'>Blog</Link></li>
                         {
                             user?.uid ?
                                 <>
@@ -55,7 +54,7 @@ const Header = () => {
                                 </>
                         }
 
-                        <li><Link to='/blog'>Blog</Link></li>
+
 
                     </ul>
                 </div>
@@ -74,7 +73,7 @@ const Header = () => {
                                         <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                                             <div className=" avatar online rounded-full">
 
-                                                <img src={(user?.photoURL)?user.photoURL:profile} className='w-10' />
+                                                <img src={(user?.photoURL) ? user.photoURL : profile} className='w-10' />
 
                                             </div>
                                         </label>

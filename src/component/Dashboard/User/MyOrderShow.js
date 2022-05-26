@@ -8,11 +8,11 @@ import auth from '../../../firebase.init'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom'
 
+const MyOrderShow = ({ order, index, cancelOrder }) => {
 
-const MyOrderShow = ({ order, index ,cancelOrder}) => {
-
-
+    const navigate = useNavigate()
 
     const { orderId, quantity, address } = order
 
@@ -23,6 +23,9 @@ const MyOrderShow = ({ order, index ,cancelOrder}) => {
             }
         }));
 
+    if (isLoading) {
+        return <Loading />
+    }
     if (error) {
         if (error.response.status !== 200) {
             signOut(auth)
@@ -30,9 +33,6 @@ const MyOrderShow = ({ order, index ,cancelOrder}) => {
     }
     const orderFind = data?.data || {}
     const { name, image, category, discount_price } = orderFind;
-    if (isLoading) {
-        return <Loading />
-    }
     const TotalPrice = parseInt(quantity) * Number(discount_price)
     return (
 
@@ -43,12 +43,12 @@ const MyOrderShow = ({ order, index ,cancelOrder}) => {
             <td>{category}</td>
             <td>{TotalPrice}</td>
             <td>{address.slice(0, 20)}..</td>
-            <td><button className='btn btn-success btn-xs text-white'>Pay Now</button></td>
+            <td><button onClick={() => navigate(`/payment/${order._id}/${orderId}`)} className='btn btn-success btn-xs text-white'>Pay Now</button></td>
             <td>
 
                 <label
                     for="cancelOrder"
-                   onClick={()=>cancelOrder(order._id)}
+                    onClick={() => cancelOrder(order._id)}
                     className='btn border-none bg-red-600 btn-xs'>
                     cancel
                 </label>
