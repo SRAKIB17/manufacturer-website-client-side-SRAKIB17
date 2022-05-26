@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { useQuery } from 'react-query'
 
@@ -6,14 +6,14 @@ import axios from 'axios';
 import Loading from '../../Loading/Loading';
 
 
-import { useAuthState } from 'react-firebase-hooks/auth'
 
 
 const OrderShow = ({ order, index }) => {
+    const statusRef = useRef()
 
-    const { orderId, quantity, address } = order;
-    console.log(orderId)
-    const { data, isLoading } = useQuery('specificAllOrder', () => axios.get(`http://localhost:5000/product/${orderId}`, {
+    const { orderId, quantity, address, payment, status } = order;
+
+    const { data, isLoading, refetch } = useQuery('specificAllOrder', () => axios.get(`http://localhost:5000/product/${orderId}`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }
@@ -22,7 +22,23 @@ const OrderShow = ({ order, index }) => {
     if (isLoading) {
         return <Loading />
     }
-    const TotalPrice = parseInt(quantity) * Number(discount_price)
+    const TotalPrice = parseInt(quantity) * Number(discount_price);
+
+    const changingHandleOrder = async (e) => {
+        e.preventDefault()
+        const status = statusRef.current.value;
+
+        let statusChange = {
+            status: status
+        }
+        const { data } = await axios.put(`http://localhost:5000/order-payment-status/${order._id}`, statusChange, {
+            headers: {
+                'authorize': `token ${localStorage.getItem('tokenVerify')}`
+            }
+        })
+        refetch()
+    }
+
     return (
 
         <tr>
@@ -31,8 +47,22 @@ const OrderShow = ({ order, index }) => {
             <td>{name.slice(0, 30)}...</td>
             <td>{category}</td>
             <td>{TotalPrice}</td>
-            <td>{address.slice(0, 20)}..</td>
-            <td></td>
+            <td title={address}>{address.slice(0, 15)}..</td>
+            <td>
+                {payment ?
+                    <span className=''>
+                        <form onChange={changingHandleOrder} onInput={changingHandleOrder} onClick={changingHandleOrder} onBlur={changingHandleOrder}>
+                            <select name="status" ref={statusRef} id="" className='input input-bordered p-1  input-accent'>
+                                <option value="" disabled selected >{status}</option>
+                                <option disabled={(status === 'Refund') ? true : false} value="Refund" >Refund</option>
+                                <option disabled={(status === 'Pending') ? true : false} value="Pending">Pending</option>
+                                <option disabled={(status === 'Shipped') ? true : false} value="Shipped">Shipped</option>
+                            </select>
+                        </form>
+                    </span> :
+                    <span className='rounded-md p-1 text-xs font-bold text-white border-none btn-error btn-xs'>Unpaid</span>
+                }
+            </td>
         </tr>
     );
 };

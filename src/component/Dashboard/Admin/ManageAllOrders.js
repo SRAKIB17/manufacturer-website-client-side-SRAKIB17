@@ -27,7 +27,6 @@ const ManageAllOrders = () => {
         }
     }
     const allOrder = data?.data || [];
-    console.log(allOrder)
 
     return (
         <div class="overflow-x-auto p-6">
@@ -40,7 +39,7 @@ const ManageAllOrders = () => {
                         <th>CATEGORY</th>
                         <th>Total PRICE</th>
                         <th>Address</th>
-                        <th>Favorite Color</th>
+                        <th>Status </th>
                     </tr>
                 </thead>
                 <tbody>

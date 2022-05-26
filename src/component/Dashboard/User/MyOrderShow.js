@@ -14,7 +14,7 @@ const MyOrderShow = ({ order, index, cancelOrder }) => {
 
     const navigate = useNavigate()
 
-    const { orderId, quantity, address, payment } = order;
+    const { orderId, quantity, address, payment,status } = order;
 
 
     const { data, isLoading, error } = useQuery('SpecificOrder', () => axios.get(`http://localhost:5000/product/${orderId}`,
@@ -45,7 +45,7 @@ const MyOrderShow = ({ order, index, cancelOrder }) => {
             <td>{TotalPrice}</td>
             <td>{address.slice(0, 20)}..</td>
             {
-                payment ? <td ><span className='rounded-md p-1 text-xs font-bold text-white border-none btn-success btn-xs'>Paid</span></td> :
+                payment ? <td ><span className='rounded-md p-1 text-xs font-bold text-white border-none btn-success btn-xs'>{status|| 'Paid'}</span></td> :
                     <td><button onClick={() => navigate(`/payment/${order._id}/${orderId}`)} className='btn btn-secondary btn-xs text-white'>Pay Now</button></td>
             }
             <td>
