@@ -39,7 +39,7 @@ function App() {
           <Route path='profile' element={<MyProfile />} />
           <Route path='add-review' element={<AddReview />} />
           <Route path='my-order' element={<MyOrder />} />
-
+          {/* Private auth */}
           {
             admin?.admin && <>
               <Route path='add-product' element={<AddProduct />} />
