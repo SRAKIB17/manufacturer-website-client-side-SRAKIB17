@@ -17,7 +17,7 @@ const MyOrderShow = ({ order, index, cancelOrder }) => {
     const { orderId, quantity, address, payment,status } = order;
 
 
-    const { data, isLoading, error } = useQuery('SpecificOrder', () => axios.get(`http://localhost:5000/product/${orderId}`,
+    const { data, isLoading, error } = useQuery('SpecificOrder', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/product/${orderId}`,
         {
             headers: {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`

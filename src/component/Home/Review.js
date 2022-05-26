@@ -7,7 +7,7 @@ import Loading from '../Loading/Loading';
 import ReviewShow from './ReviewShow';
 
 const Review = () => {
-    const { data, isLoading } = useQuery('review', () => axios.get(`http://localhost:5000/review?page=0&skip=5`));
+    const { data, isLoading } = useQuery('review', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/review?page=0&skip=5`));
    
     if (isLoading) {
         return <Loading />

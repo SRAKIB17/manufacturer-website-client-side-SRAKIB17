@@ -64,9 +64,9 @@ const Header = () => {
                     <div className="navbar-end bg-primary">
 
                         <div className="flex p-2 gap-2 text-black items-center">
-                            <div className="form-control">
+                            {/* <div className="form-control">
                                 <input type="text" placeholder="Search" className="input input-bordered lg:static md:static lg:w-full absolute right-[170px]  w-40" />
-                            </div>
+                            </div> */}
                             {
                                 user ? <>
                                     <div className="dropdown dropdown-end">

@@ -17,7 +17,7 @@ const MyOrder = () => {
     // for cancel 
     const [cancelOrder, setCancelOrder] = useState(null);
 
-    const { data, isLoading, error, refetch } = useQuery('MyOrder', () => axios.get(`http://localhost:5000/order?email=${user.email}`, {
+    const { data, isLoading, error, refetch } = useQuery('MyOrder', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/order?email=${user.email}`, {
 
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`

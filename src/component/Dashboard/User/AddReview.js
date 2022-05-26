@@ -15,7 +15,7 @@ const AddReview = () => {
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
 
 
-    const { data, isLoading, error } = useQuery('checkUser', () => axios.get(`http://localhost:5000/verify-user`, {
+    const { data, isLoading, error } = useQuery('checkUser', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/verify-user`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }
@@ -56,7 +56,7 @@ const AddReview = () => {
             rating: ratingChecked
         }
 
-        const { data } = await axios.post('http://localhost:5000/review', review, {
+        const { data } = await axios.post('https://fathomless-thicket-10172.herokuapp.com/review', review, {
             headers: {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`
             }

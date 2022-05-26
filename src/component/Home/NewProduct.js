@@ -7,7 +7,7 @@ import Loading from '../Loading/Loading';
 
 
 const NewProduct = () => {
-    const { data, isLoading } = useQuery('newProduct', () => axios.get(`http://localhost:5000/products?newI=true`));
+    const { data, isLoading } = useQuery('newProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products?newI=true`));
     if (isLoading) {
         return <Loading />
     }

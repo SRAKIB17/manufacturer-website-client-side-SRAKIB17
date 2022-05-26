@@ -13,7 +13,7 @@ const OrderShow = ({ order, index }) => {
 
     const { orderId, quantity, address, payment, status } = order;
 
-    const { data, isLoading, refetch } = useQuery('specificAllOrder', () => axios.get(`http://localhost:5000/product/${orderId}`, {
+    const { data, isLoading, refetch } = useQuery('specificAllOrder', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/product/${orderId}`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }
@@ -31,7 +31,7 @@ const OrderShow = ({ order, index }) => {
         let statusChange = {
             status: status
         }
-        const { data } = await axios.put(`http://localhost:5000/order-payment-status/${order._id}`, statusChange, {
+        const { data } = await axios.put(`https://fathomless-thicket-10172.herokuapp.com/order-payment-status/${order._id}`, statusChange, {
             headers: {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`
             }

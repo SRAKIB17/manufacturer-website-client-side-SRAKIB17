@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const DeleteModal = ({ setDelete: { setDelete, deleteP, refetch } }) => {
 
     const deleteHandle = async () => {
-        const {data} = await axios.delete(`http://localhost:5000/product/${deleteP}`)
+        const {data} = await axios.delete(`https://fathomless-thicket-10172.herokuapp.com/product/${deleteP}`)
         console.log(data)
       
         if (data.deletedCount) {

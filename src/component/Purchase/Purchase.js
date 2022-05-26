@@ -15,7 +15,7 @@ const Purchase = () => {
 
 
 
-    const { data, isLoading, error } = useQuery('Purchase', () => axios.get(`http://localhost:5000/product/${id}`, {
+    const { data, isLoading, error } = useQuery('Purchase', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/product/${id}`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }

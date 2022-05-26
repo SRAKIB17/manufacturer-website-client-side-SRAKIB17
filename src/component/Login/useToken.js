@@ -9,7 +9,7 @@ const useToken = (user) => {
             const email = user?.email;
             localStorage.removeItem('tokenVerify')
             if (email) {
-                const { data } = await axios.get(`http://localhost:5000/login?email=${email}`)
+                const { data } = await axios.get(`https://fathomless-thicket-10172.herokuapp.com/login?email=${email}`)
                 localStorage.setItem('tokenVerify', data.token)
                 if(data.token){
                     setToken(true)

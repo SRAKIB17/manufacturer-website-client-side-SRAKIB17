@@ -8,7 +8,7 @@ const MakeOrRemoveAdmin = ({ props: { makeAdmin, setMakeAdmin, refetch } }) => {
     console.log(_id)
     const makeAdminHandle = async () => {
         if (method === 'add') {
-            const { data } = await axios.put(`http://localhost:5000/modify-user/${_id}?method=add`, {}, {
+            const { data } = await axios.put(`https://fathomless-thicket-10172.herokuapp.com/modify-user/${_id}?method=add`, {}, {
                 headers: {
                     'authorize': `token ${localStorage.getItem('tokenVerify')}`
                 }
@@ -18,7 +18,7 @@ const MakeOrRemoveAdmin = ({ props: { makeAdmin, setMakeAdmin, refetch } }) => {
             }
         }
         else if (method === 'remove') {
-            const { data } = await axios.put(`http://localhost:5000/modify-user/${_id}?method=remove`, {}, {
+            const { data } = await axios.put(`https://fathomless-thicket-10172.herokuapp.com/modify-user/${_id}?method=remove`, {}, {
                 headers: {
                     'authorize': `token ${localStorage.getItem('tokenVerify')}`
                 }

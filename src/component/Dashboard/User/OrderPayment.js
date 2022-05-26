@@ -20,7 +20,7 @@ const OrderPayment = () => {
 
     // const productId = useLocation().search.split('=')[1]
 
-    const { data, isLoading, error, refetch } = useQuery('paymentForGetOrder', () => axios.get(`http://localhost:5000/product/${productId}`,
+    const { data, isLoading, error, refetch } = useQuery('paymentForGetOrder', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/product/${productId}`,
         {
             headers: {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`

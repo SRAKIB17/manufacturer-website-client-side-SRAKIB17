@@ -17,7 +17,7 @@ const MyProfile = () => {
 
     const [updateProfile, setUpdateProfile] = useState(null)
 
-    const { data, isLoading, error, refetch } = useQuery('checkUser', () => axios.get(`http://localhost:5000/verify-user`, {
+    const { data, isLoading, error, refetch } = useQuery('checkUser', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/verify-user`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }

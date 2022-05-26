@@ -7,7 +7,7 @@ const DeleteUserModal = ({ props: { deleteU, setDeleteU, refetch } }) => {
     const { _id } = deleteU;
     const makeAdminHandle = async () => {
 
-        const { data } = await axios.delete(`http://localhost:5000/user/${_id}`, {
+        const { data } = await axios.delete(`https://fathomless-thicket-10172.herokuapp.com/user/${_id}`, {
             headers: {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`
             }

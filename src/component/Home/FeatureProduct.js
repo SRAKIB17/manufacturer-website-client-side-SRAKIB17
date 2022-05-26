@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 const FeatureProduct = () => {
-    const { data, isLoading } = useQuery('FeatureProduct', () => axios.get(`http://localhost:5000/products?newI=false`));
+    const { data, isLoading } = useQuery('FeatureProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products?newI=false`));
    
     if (isLoading) {
         return <Loading />

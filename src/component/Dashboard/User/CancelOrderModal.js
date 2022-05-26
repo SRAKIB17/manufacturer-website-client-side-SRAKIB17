@@ -8,7 +8,7 @@ const CancelOrder = ({ cancelOrder: { setCancelOrder, cancelOrder, refetch } }) 
 
 
     const cancelOrderHandle = async () => {
-        const { data } = await axios.delete(`http://localhost:5000/order/${cancelOrder}`, {
+        const { data } = await axios.delete(`https://fathomless-thicket-10172.herokuapp.com/order/${cancelOrder}`, {
 
             headers: {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`

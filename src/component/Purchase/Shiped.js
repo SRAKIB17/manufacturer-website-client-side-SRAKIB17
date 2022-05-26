@@ -22,7 +22,7 @@ const Shipped = ({ product: { product, quantityRef, setProductSet } }) => {
             orderId: product?._id,
             quantity: quantityRef.current.value
         }
-        const { data } = await axios.post('http://localhost:5000/order', orderBody, {
+        const { data } = await axios.post('https://fathomless-thicket-10172.herokuapp.com/order', orderBody, {
             headers: {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`
             }

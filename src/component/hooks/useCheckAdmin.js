@@ -8,7 +8,7 @@ import Loading from "../Loading/Loading";
 const useCheckAdmin = () => {
 
 
-    const { data, isLoading, error } = useQuery('checkAdmin', () => axios.get(`http://localhost:5000/admin`, {
+    const { data, isLoading, error } = useQuery('checkAdmin', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/admin`, {
         headers: {
             'authorize': `token ${localStorage.getItem('tokenVerify')}`
         }

@@ -19,7 +19,7 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
     const [transactionID, setTransactionId] = useState('')
 
     // for get order details 
-    const { data, isLoading, error } = useQuery('getPaymentAnOrder', () => axios.get(`http://localhost:5000/order/${orderId}`,
+    const { data, isLoading, error } = useQuery('getPaymentAnOrder', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/order/${orderId}`,
         {
             headers: {
                 'authorize': `token ${localStorage.getItem('tokenVerify')}`
@@ -31,7 +31,7 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
 
     useEffect(() => {
         if (TotalPrice && quantity && (discount_price)) {
-            axios.post('http://localhost:5000/create-payment-intent', { price: parseInt(quantity) * Number(discount_price) }, {
+            axios.post('https://fathomless-thicket-10172.herokuapp.com/create-payment-intent', { price: parseInt(quantity) * Number(discount_price) }, {
                 headers: {
                     'authorize': `token ${localStorage.getItem('tokenVerify')}`
                 }
@@ -100,7 +100,7 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
                 transactionId: paymentMethod.id,
                 payment: true,
             }
-            const { data } = await axios.put(`http://localhost:5000/order-payment/${orderId}`, payment, {
+            const { data } = await axios.put(`https://fathomless-thicket-10172.herokuapp.com/order-payment/${orderId}`, payment, {
                 headers: {
                     'authorize': `token ${localStorage.getItem('tokenVerify')}`
                 }

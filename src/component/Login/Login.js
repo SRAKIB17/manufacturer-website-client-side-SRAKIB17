@@ -56,7 +56,7 @@ const Login = () => {
                     img: user?.photoURL
                 }
 
-                const { data } = await axios.put(`http://localhost:5000/user?email=${user?.email}}`, userInfo);
+                const { data } = await axios.put(`https://fathomless-thicket-10172.herokuapp.com/user?email=${user?.email}}`, userInfo);
             }
         }
         getUser()

@@ -20,7 +20,7 @@ const AddProduct = () => {
 
     const onSubmit = async (productInfo) => {
         const ProductData = { ...productInfo, image: getImageUrl, short_description: shortDescriptionRef.current.value }
-        const {data} = await axios.post('http://localhost:5000/add-product',ProductData);
+        const {data} = await axios.post('https://fathomless-thicket-10172.herokuapp.com/add-product',ProductData);
         if(data.acknowledged){
             toast.success('successfully add item')
         }

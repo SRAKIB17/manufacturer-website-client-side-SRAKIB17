@@ -17,7 +17,7 @@ const ManageProducts = () => {
     const [edit, setEdit] = useState(null);
     const [deleteP, setDelete] = useState(null);
     const [user] = useAuthState(auth);
-    const { data, isLoading, refetch } = useQuery('adminAllProduct', () => axios.get(`http://localhost:5000/all-product?email=${user.email}`));
+    const { data, isLoading, refetch } = useQuery('adminAllProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/all-product?email=${user.email}`));
 
    
 

@@ -28,7 +28,7 @@ const EditForm = ({ setEdit: { setEdit, edit, refetch } }) => {
 
     useEffect(() => {
         const getEditProduct = async () => {
-            const { data } = await axios.get(`http://localhost:5000/product-admin/${edit}?email=${user.email}`, {
+            const { data } = await axios.get(`https://fathomless-thicket-10172.herokuapp.com/product-admin/${edit}?email=${user.email}`, {
                 headers: {
                     'authorize': `token ${localStorage.getItem('tokenVerify')}`
                 }
@@ -47,7 +47,7 @@ const EditForm = ({ setEdit: { setEdit, edit, refetch } }) => {
     const onSubmit = async (productInfo) => {
         const ProductData = { ...productInfo, image: getImageUrl, short_description: shortDescriptionRef.current.value }
         console.log(ProductData)
-        const { data } = await axios.put(`http://localhost:5000/product/${edit}`, ProductData);
+        const { data } = await axios.put(`https://fathomless-thicket-10172.herokuapp.com/product/${edit}`, ProductData);
         console.log(data)
         if (data.modifiedCount) {
             toast.success('successfully add item')
