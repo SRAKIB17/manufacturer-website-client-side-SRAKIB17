@@ -3,6 +3,7 @@ import axios from 'axios';
 import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import Loading from '../../Loading/Loading';
 
@@ -14,9 +15,10 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
 
     const [cardError, setCardError] = useState('')
     const [success, setSuccess] = useState('')
-    const [processing, setProcessing] = useState(false)
+
     const [transactionID, setTransactionId] = useState('')
 
+    // for get order details 
     const { data, isLoading, error } = useQuery('getPaymentAnOrder', () => axios.get(`http://localhost:5000/order/${orderId}`,
         {
             headers: {
@@ -28,17 +30,21 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
     const TotalPrice = parseInt(quantity) * Number(discount_price);
 
     useEffect(() => {
-        axios.post('http://localhost:5000/create-payment-intent', { price: parseInt(quantity) * Number(discount_price) }, {
-            headers: {
-                'authorize': `token ${localStorage.getItem('tokenVerify')}`
-            }
-        })
-            .then(data => {
-                if (data?.clientSecret) {
-                    setClientSecret(data.clientSecret)
+        if (TotalPrice && quantity && (discount_price)) {
+            axios.post('http://localhost:5000/create-payment-intent', { price: parseInt(quantity) * Number(discount_price) }, {
+                headers: {
+                    'authorize': `token ${localStorage.getItem('tokenVerify')}`
                 }
             })
-    }, [quantity, discount_price])
+                .then(data => {
+
+                    if (data?.clientSecret) {
+                        setClientSecret(data.clientSecret)
+                    }
+                })
+        }
+
+    }, [quantity, discount_price, TotalPrice,])
 
     if (isLoading) {
         return <Loading />
@@ -65,48 +71,42 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card,
+            billing_details: {
+                name: customerName,
+                email: email,
+            },
         });
 
 
 
         setCardError(error ? error.message : '')
         setSuccess('')
-        setProcessing(true)
+
+
+
         //confirmed card payment
-        const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
-            clientSecret,
-            {
-                payment_method: {
-                    card: card,
-                    billing_details: {
-                        name: customerName,
-                        email: email,
-                    },
-                },
-            },
-        );
-        if (intentError) {
-            setCardError(intentError?.message)
+
+        if (error) {
+            setCardError(error?.message)
             setSuccess('')
-            setProcessing(false)
+
         }
         else {
-            setTransactionId(paymentIntent.id)
+            setTransactionId(paymentMethod.id)
             setCardError('')
-            setSuccess('Congrats! your payment is completed')
+            setSuccess('Congrats! your payment is completed');
             // 
             const payment = {
-                transactionId: paymentIntent.id,
+                transactionId: paymentMethod.id,
+                payment: true,
             }
-            // const { data } = await axios.put(`https://cryptic-sea-31097.herokuapp.com/${_id}`, payment, {
+            const { data } = await axios.put(`http://localhost:5000/order-payment/${orderId}`, payment, {
+                headers: {
+                    'authorize': `token ${localStorage.getItem('tokenVerify')}`
+                }
+            })
+           
 
-            //     headers: {
-            //         'content-type': 'application/json',
-            //         'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            //     }
-            // })
-            // console.log(data);
-            setProcessing(false)
 
         }
 
@@ -202,6 +202,9 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
                         }
                         {
                             success && <p className='text-green-500'>Your transaction Id : <span className='text-red-400'>{transactionID}</span></p>
+                        }
+                        {
+                            success && <Link to='/dashboard/my-order' className=' btn btn-primary btn-xs mt-3'>Back My Order</Link>
                         }
                     </div>
                 </div>

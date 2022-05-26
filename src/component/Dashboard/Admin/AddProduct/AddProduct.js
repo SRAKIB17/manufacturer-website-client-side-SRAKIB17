@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { get, useForm } from "react-hook-form";
-import { useAuthState } from 'react-firebase-hooks/auth';
-import auth from '../../../../firebase.init';
+
 import Name from './Name';
 import Category from './Category';
 import Description from './Description';

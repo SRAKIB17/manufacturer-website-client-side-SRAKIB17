@@ -42,12 +42,12 @@ const Login = () => {
 
     const navigate = useNavigate();
     const [user] = useAuthState(auth);
-    const token = useToken(user)
-    const tokenG = useToken(user)
+    const token = useToken(user || userG)
+
 
     useEffect(() => {
         const getUser = async () => {
-            if (token || tokenG) {
+            if (token) {
                 navigate(from)
                 const userInfo = {
                     email: user?.email,
@@ -60,7 +60,7 @@ const Login = () => {
             }
         }
         getUser()
-    }, [user, from, navigate, token, tokenG])
+    }, [user, from, navigate, token])
 
 
     const onSubmit = async data => {
