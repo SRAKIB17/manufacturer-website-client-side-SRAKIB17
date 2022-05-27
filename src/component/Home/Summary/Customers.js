@@ -4,9 +4,9 @@ import { LineChart, Line } from 'recharts';
 const Customers = ({ props: data }) => {
 
     return (
-        <div>
+        <div className='overflow-auto w-[300px] sm:w-full'>
             <h1 className='text-2xl text-white text-center m-2'>Total Customer</h1>
-            <div className='flex lg:justify-center mxau flex-col' >
+            <div className='flex lg:justify-center mx-auto' >
                 <BarChart width={600} height={300} data={data}>
                     <XAxis dataKey="year" stroke="#8884d8" />
                     <YAxis />

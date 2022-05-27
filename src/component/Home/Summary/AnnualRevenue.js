@@ -4,7 +4,7 @@ import { LineChart, Line } from 'recharts';
 
 const AnnualRevenue = ({props:data}) => {
     return (
-        <div>
+        <div className='overflow-auto w-[300px] sm:w-full'>
             <h1 className='text-white text-2xl text-center m-4'>Annual Revenue</h1>
             <LineChart width={600} height={300} data={data}>
                     <Tooltip />

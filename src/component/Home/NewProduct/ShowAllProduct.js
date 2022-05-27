@@ -25,7 +25,7 @@ const ShowAllProduct = () => {
         }
 
     }, [hash, pathname])
-    const { data, isLoading, refetch } = useQuery('newProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products/${page}/${skip}?newI=${newI}`));
+    const { data, isLoading, refetch } = useQuery('AllNewFeatureProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products/${page}/${skip}?newI=${newI}`));
     if (isLoading) {
         return <Loading />
     }
@@ -43,7 +43,7 @@ const ShowAllProduct = () => {
     }
     return (
         <div className='mt-4 mb-4'>
-            <h1 className='text-3xl m-4 font-bold text-black'>🔘 New Product</h1>
+            <h1 className='text-3xl m-4 font-bold text-black'>🔘{(newI === 'true')?'New Product': 'Feature Product'}</h1>
             <div className='p-6 m-4 grid-cols-1 sm:grid-cols-2  gap-2 items-center justify-center grid md:grid-cols-2 lg:grid-cols-3 lg:gap-4'>
                 {
                     newProduct?.map(product => <ShowProduct key={product._id} product={product} />)

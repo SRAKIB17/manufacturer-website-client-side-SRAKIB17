@@ -9,10 +9,8 @@ import axios from 'axios';
 
 
 const FeatureProduct = () => {
-    const { data, isLoading, refetch } = useQuery('newProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products/0/6?newI=false`));
+    const { data, isLoading, refetch } = useQuery('featureProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products/0/6?newI=false`));
 
-
-   
     if (isLoading) {
         return <Loading />
     }
@@ -26,7 +24,7 @@ const FeatureProduct = () => {
                 }
             </div>
             <div className='text-right mr-2'>
-                <Link className='btn text-white' to='/products/true'>Load More</Link>
+                <Link className='btn text-white' to='/products/false'>Load More</Link>
             
             </div>
         </div>
