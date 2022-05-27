@@ -20,7 +20,7 @@ const AllReview = () => {
         }
 
     }, [hash, pathname])
-    const { data, isLoading, refetch } = useQuery('AllReview', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/review?page=${page}&skip=${skip}`));
+    const { data, isLoading, refetch } = useQuery([page, skip,'AllReview'], () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/review?page=${page}&skip=${skip}`));
 
     const { data: count, refetch: reCount } = useQuery('reviewCount', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/review-count?skip=${skip}`));
 

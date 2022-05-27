@@ -25,7 +25,7 @@ const ShowAllProduct = () => {
         }
 
     }, [hash, pathname])
-    const { data, isLoading, refetch } = useQuery('AllNewFeatureProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products/${page}/${skip}?newI=${newI}`));
+    const { data, isLoading, refetch } = useQuery(['AllNewFeatureProduct', page, skip], () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products/${page}/${skip}?newI=${newI}`));
     if (isLoading) {
         return <Loading />
     }
