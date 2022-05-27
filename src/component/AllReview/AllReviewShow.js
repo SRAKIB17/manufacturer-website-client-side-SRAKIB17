@@ -1,21 +1,20 @@
 import React from 'react';
 
-const ReviewShow = ({ review, index }) => {
-
+const AllReviewShow = ({ review, index }) => {
     const bgRatingAll = ['bg-red-400', ' bg-orange-400', 'bg-yellow-400', 'bg-lime-400', ' bg-green-400']
     const bgRating = bgRatingAll.slice(0, review?.rating)
-    return (
-        <div id={'review' + index} className="carousel-item w-full p-4">
 
-            <div>
-                <div className='flex'>
+    return (
+        <div className='mx-auto' style={{maxWidth: '700px'}}>
+            <div class="card bg-base-100 shadow-xl mb-2">
+                <div className='flex p-4'>
                     <div className="avatar mr-4">
                         <div className="w-24 mask mask-hexagon">
                             <img src={review.img} />
                         </div>
                     </div>
-                    <div>
-                        <h1 className='text-2xl font-bold text-white'>{review.name}</h1>
+                    <div >
+                        <h1 className='text-2xl font-bold text-black card-title'>{review.name}</h1>
 
                         <div className='m-3'>
                             <div className="rating gap-1">
@@ -54,10 +53,10 @@ const ReviewShow = ({ review, index }) => {
                     </div>
 
                 </div>
-                <p>{review.review} ...</p>
+                <p class="card-body">{review.review} ...</p>
             </div>
         </div>
     );
 };
 
-export default ReviewShow;
+export default AllReviewShow;

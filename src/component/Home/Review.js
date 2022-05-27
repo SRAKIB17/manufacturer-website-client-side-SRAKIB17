@@ -35,7 +35,7 @@ const Review = () => {
                     )
                 }
                 <div>
-                    <Link className='btn btn-xs btn-secondary' to='/'>Load More</Link>
+                    <Link className='btn btn-xs btn-secondary' to='/reviews'>Load More</Link>
                 </div>
             </div>
 

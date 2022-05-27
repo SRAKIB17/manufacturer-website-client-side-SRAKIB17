@@ -34,6 +34,8 @@ const Image = ({ props: { setGetImageData, setGetImageUrl },product }) => {
         event.target.ownerDocument.querySelector('#uploaderFile').classList.remove('highlight')
     }
 
+  
+
     return (
         <div className=' max-w-xs w-full'>
             <div>
@@ -52,7 +54,7 @@ const Image = ({ props: { setGetImageData, setGetImageUrl },product }) => {
 
                     <input type="file" name="image_file" id="uploaderManually" className='form-control' onChange={(e) => uploadFileHandler(e)} />
                 </div>
-                {message && <span className='label-text-alt text-red-500 mb-4'>  {message}</span>}
+                {message && message}
 
 
                 {/* <div id='gallery'>

@@ -6,15 +6,15 @@ const useFileUploader = () => {
 
     const [fileData, setFileData] = useState('');
     const [message, setMessage] = useState('')
-    
+
     const uploadFileHandler = async (e) => {
         e.preventDefault()
         e.stopPropagation()
         let dt = e.dataTransfer;
         let files = dt?.files[0];
-        if(!files){
+        if (!files) {
             files = e.target.ownerDocument.querySelector('#uploaderManually').files[0];
-           console.log(files)
+            console.log(files)
         }
 
 
@@ -33,13 +33,13 @@ const useFileUploader = () => {
 
             // image check sizes and type 
             if (!rFilter.test(type)) {
-                setMessage('You should select valid files / file only!')
+                setMessage( <span className='label-text-alt text-success mb-8'>You should select valid files / file only!</span>)
             }
             else {
 
 
                 const result = e.target.result;
-                setMessage('successfully uploaded');
+                setMessage(<span className='label-text-alt text-success mb-8'>Successfully uploaded</span>);
                 setFileData(result);
 
                 fetch(`https://api.imgbb.com/1/upload?key=15847c16066308ed3e47892c5212cefd`, {
@@ -58,7 +58,7 @@ const useFileUploader = () => {
         }
         oReader.readAsDataURL(files);
     }
-    return { fileData, message, uploadFileHandler,result }
+    return { fileData, message, uploadFileHandler, result }
 };
 
 export default useFileUploader;

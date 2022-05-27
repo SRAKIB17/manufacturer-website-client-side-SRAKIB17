@@ -11,35 +11,40 @@ import Name from './Name';
 
 
 
-const UpdateForm = ({props:{setUpdateProfile, refetch}}) => {
+const UpdateForm = ({ props: { setUpdateProfile, refetch } }) => {
 
     const shortDescriptionRef = useRef()
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const [getImageData, setGetImageData] = useState('');
-    const [getImageUrl, setGetImageUrl] = useState('');
+    const [getImageUrl, setGetImageUrl] = useState(null);
 
     const [user] = useAuthState(auth);
+
 
     const [product, setProduct] = useState()
     const [updateProfile, updating, error] = useUpdateProfile(auth);
 
     const onSubmit = async (data) => {
-
-        updateProfile({ displayName: data.name, photoURL: getImageUrl })
-            .then( ()=>{
+        let imageUrl;
+        if (getImageUrl) {
+            imageUrl = getImageUrl;
+        }
+        else {
+            imageUrl = user?.photoURL;
+        }
+        updateProfile({ displayName: data.name, photoURL: imageUrl })
+            .then(() => {
                 toast.success('successfully update profile')
                 refetch()
                 setUpdateProfile(null)
             });
-
-
     }
 
     const handleClearProduct = () => {
         setProduct(null)
     }
     return (
-        <div className='flex md:flex-row flex-col-reverse'>
+        <div className='flex md:flex-row flex-col-reverse mb-8'>
             <div className='order-2 mx-auto m-5'>
                 {
                     getImageData && <>

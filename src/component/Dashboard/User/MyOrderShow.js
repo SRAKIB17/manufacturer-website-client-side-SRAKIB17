@@ -43,7 +43,7 @@ const MyOrderShow = ({ order, index, cancelOrder }) => {
             <td>{name?.slice(0, 30)}...</td>
             <td>{category}</td>
             <td>{TotalPrice}</td>
-            <td>{address.slice(0, 20)}..</td>
+            <td>{address?.slice(0, 20)}..</td>
             {
                 payment ? <td ><span className='rounded-md p-1 text-xs font-bold text-white border-none btn-success btn-xs'>{status|| 'Paid'}</span></td> :
                     <td><button onClick={() => navigate(`/payment/${order._id}/${orderId}`)} className='btn btn-secondary btn-xs text-white'>Pay Now</button></td>
