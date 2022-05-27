@@ -21,6 +21,8 @@ import NoteFound from './component/NoteFound/NoteFound';
 import OrderPayment from './component/Dashboard/User/OrderPayment';
 import Blogs from './component/Blogs/Blogs';
 import AllReview from './component/AllReview/AllReview';
+import ShowAllProduct from './component/Home/NewProduct/ShowAllProduct';
+
 
 function App() {
   const { admin } = useCheckAdmin()
@@ -33,10 +35,11 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/about' element={<Admin />} />
+        <Route path='/products/:newI' element={<ShowAllProduct />} />
         <Route path='/purchase/:id' element={<Private><Purchase /></Private>} />
         <Route path='/payment/:orderId/:productId' element={<Private><OrderPayment /></Private>} />
         <Route path='/blog' element={<Blogs />} />
-        <Route path='/blog' element={<AllReview />} />
+        <Route path='/reviews' element={<AllReview />} />
 
         <Route path='/dashboard' element={<Private><Dashboard /></Private>}>
           <Route index element={<MyProfile />} />

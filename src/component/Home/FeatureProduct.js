@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from '../Loading/Loading';
 import ShowProduct from './ShowProduct';
+import {Link} from 'react-router-dom';
 
 import { useQuery } from 'react-query'
 
@@ -8,12 +9,14 @@ import axios from 'axios';
 
 
 const FeatureProduct = () => {
-    const { data, isLoading } = useQuery('FeatureProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products?newI=false`));
+    const { data, isLoading, refetch } = useQuery('newProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products/0/6?newI=false`));
+
+
    
     if (isLoading) {
         return <Loading />
     }
-    const products = data?.data;
+    const products = data?.data?.products;
     return (
         <div className='mt-4 mb-4'>
             <h1 className='text-3xl m-4 font-bold text-black'>🔘 Feature Product</h1>
@@ -23,7 +26,8 @@ const FeatureProduct = () => {
                 }
             </div>
             <div className='text-right mr-2'>
-                <button className='btn text-white'>Load More</button>
+                <Link className='btn text-white' to='/products/true'>Load More</Link>
+            
             </div>
         </div>
     );

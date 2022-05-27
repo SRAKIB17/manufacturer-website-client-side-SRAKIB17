@@ -47,7 +47,7 @@ const Image = ({ props: { setGetImageData, setGetImageUrl },product }) => {
 
 
                 </div>
-                <div class="divider">OR</div>
+                <div className="divider">OR</div>
                 <div>
 
                     <input type="file" name="image_file" id="uploaderManually" className='form-control' onChange={(e) => uploadFileHandler(e)} />

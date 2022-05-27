@@ -58,11 +58,11 @@ const Purchase = () => {
     }
     return (
         <div>
-            <div class="hero min-h-screen bg-base-200">
-                <div class="hero-content flex-col lg:flex-row">
-                    <img src={product?.image} class="max-w-sm rounded-lg shadow-2xl" />
+            <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content flex-col lg:flex-row">
+                    <img src={product?.image} className="max-w-sm rounded-lg shadow-2xl" />
                     <div className='p-4 m-2'>
-                        <h1 class="text-5xl text-primary font-bold">{product?.name}</h1>
+                        <h1 className="text-5xl text-primary font-bold">{product?.name}</h1>
                         <div className='p-2'>
                             <p>{product.short_description}</p>
                         </div>
@@ -90,7 +90,7 @@ const Purchase = () => {
                             <button onClick={() => increaseDecreaseHandle('inc')} className='btn text-2xl ml-2'>+</button>
                         </div>
 
-                        <label for="shippedProduct" onClick={() => setProductSet(true)} class="btn btn-secondary text-white">Buy Now</label>
+                        <label for="shippedProduct" onClick={() => setProductSet(true)} className="btn btn-secondary text-white">Buy Now</label>
                     </div>
                     {
                         productSet && <Shipped product={{ product, quantityRef, setProductSet }} />

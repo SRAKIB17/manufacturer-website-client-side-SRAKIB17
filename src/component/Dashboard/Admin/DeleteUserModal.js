@@ -28,15 +28,15 @@ const DeleteUserModal = ({ props: { deleteU, setDeleteU, refetch } }) => {
     return (
         <div>
             <div >
-                <input type="checkbox" id="deleteModal" class="modal-toggle" />
-                <div class="modal" style={{ zIndex: '20' }}>
-                    <div class="modal-box">
-                        <h3 class="font-bold text-2xl">Are You sure?  Delete this user</h3>
+                <input type="checkbox" id="deleteModal" className="modal-toggle" />
+                <div className="modal" style={{ zIndex: '20' }}>
+                    <div className="modal-box">
+                        <h3 className="font-bold text-2xl">Are You sure?  Delete this user</h3>
 
-                        <div class="modal-action">
+                        <div className="modal-action">
                             <button onClick={makeAdminHandle} className='btn btn-success text-white'>Confirm</button>
 
-                            <label for="deleteModal" class="btn">cancel</label>
+                            <label for="deleteModal" className="btn">cancel</label>
                         </div>
                     </div>
                 </div>

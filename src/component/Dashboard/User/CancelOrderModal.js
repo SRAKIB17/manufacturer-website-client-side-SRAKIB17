@@ -32,14 +32,14 @@ const CancelOrder = ({ cancelOrder: { setCancelOrder, cancelOrder, refetch } }) 
     return (
         <div>
 
-            <input type="checkbox" id="cancelOrder" class="modal-toggle" />
-            <div class="modal">
-                <div class="modal-box relative">
+            <input type="checkbox" id="cancelOrder" className="modal-toggle" />
+            <div className="modal">
+                <div className="modal-box relative">
 
-                    <h3 class="font-bold text-2xl text-red-500">Are You sure cancel this product</h3>
+                    <h3 className="font-bold text-2xl text-red-500">Are You sure cancel this product</h3>
                     <div className='m-4'>
                         <button onClick={cancelOrderHandle} className='btn btn-error mr-2 text-white'>Confirm</button>
-                        <label for="cancelOrder" class="btn">cancel</label>
+                        <label for="cancelOrder" className="btn">cancel</label>
                     </div>
 
                 </div>

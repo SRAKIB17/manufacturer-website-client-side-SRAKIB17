@@ -37,8 +37,8 @@ const MyProfile = () => {
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-2'>
 
                 <div className='flex flex-col items-center'>
-                    <div class="avatar">
-                        <div class="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                    <div className="avatar">
+                        <div className="w-36 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             {
                                 user.photoURL ? <img src={user.photoURL} alt='' /> : <img src={profilePic} alt="" />
                             }
@@ -51,7 +51,7 @@ const MyProfile = () => {
                 </div>
                 <div className='p-4 text-center'>
                     <div>
-                        <table class="table table-zebra ">
+                        <table className="table table-zebra ">
 
                             <thead>
                                 <tr>

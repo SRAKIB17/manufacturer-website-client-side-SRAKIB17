@@ -20,17 +20,17 @@ const Review = () => {
                 <div className='md:w-[50%]  font-bold text-center md:text-right  p-4'>
                     <h1 className='text-2xl md:text-3xl'>What Our Client's Say: </h1>
                 </div>
-                <div class="carousel w-[50%]">
+                <div className="carousel w-[50%]">
                     {
                         reviews.map((review, index) => <ReviewShow review={review} key={review._id} index={index} />)
                     }
                 </div>
             </div>
-            <div class="flex justify-center w-full py-2 gap-2">
+            <div className="flex justify-center w-full py-2 gap-2">
                 {
                     reviews.map((review, index) =>
 
-                        <a href={'#review' + index} class="btn btn-xs btn-secondary">{index + 1}</a>
+                        <a href={'#review' + index} className="btn btn-xs btn-secondary">{index + 1}</a>
 
                     )
                 }

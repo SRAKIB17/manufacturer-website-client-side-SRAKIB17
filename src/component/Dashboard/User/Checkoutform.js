@@ -116,15 +116,15 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
 
     return (
         <div>
-            <div class="hero  bg-base-200">
-                <div class="hero-content flex-col lg:flex-row">
+            <div className="hero  bg-base-200">
+                <div className="hero-content flex-col lg:flex-row">
                     <img src={image} className=' w-60 h-60 rounded-md' alt='' />
                     <div>
                         <div className='mt-6 mb-6 flex flex-col items-center justify-center]'>
-                            <div class="overflow-x-auto">
+                            <div className="overflow-x-auto">
                                 <h1 className='text-left p-2 text-2xl'>Customer Info:</h1>
 
-                                <table class="table table-compact w-96">
+                                <table className="table table-compact w-96">
                                     <tbody>
 
                                         <tr>
@@ -148,7 +148,7 @@ const CheckoutForm = ({ props: { orderId, paymentOrder, refetch } }) => {
                                     </tbody>
                                 </table>
                                 <h1 className='text-left p-2 text-2xl'>Product Info:</h1>
-                                <table class="table table-compact w-96">
+                                <table className="table table-compact w-96">
                                     <tbody>
 
                                         <tr>

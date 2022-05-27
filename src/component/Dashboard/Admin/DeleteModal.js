@@ -22,15 +22,15 @@ const DeleteModal = ({ setDelete: { setDelete, deleteP, refetch } }) => {
     }
     return (
         <div >
-            <input type="checkbox" id="deleteModal" class="modal-toggle" />
-            <div class="modal" style={{zIndex: '20'}}>
-                <div class="modal-box">
-                    <h3 class="font-bold text-2xl">Are You sure delete this product</h3>
+            <input type="checkbox" id="deleteModal" className="modal-toggle" />
+            <div className="modal" style={{zIndex: '20'}}>
+                <div className="modal-box">
+                    <h3 className="font-bold text-2xl">Are You sure delete this product</h3>
 
-                    <div class="modal-action">
+                    <div className="modal-action">
                         <button onClick={deleteHandle} className='btn btn-error text-white'>Delete</button>
 
-                        <label for="deleteModal" class="btn">cancel</label>
+                        <label for="deleteModal" className="btn">cancel</label>
                     </div>
                 </div>
             </div>

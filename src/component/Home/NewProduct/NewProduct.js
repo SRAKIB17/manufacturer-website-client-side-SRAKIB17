@@ -1,17 +1,20 @@
 import React from 'react';
-import ShowProduct from './ShowProduct';
+import ShowProduct from '../ShowProduct';
 import { useQuery } from 'react-query'
+import {Link} from 'react-router-dom';
 
 import axios from 'axios';
-import Loading from '../Loading/Loading';
+import Loading from '../../Loading/Loading';
 
 
 const NewProduct = () => {
-    const { data, isLoading } = useQuery('newProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products?newI=true`));
+    const { data, isLoading, refetch } = useQuery('newProduct', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/products/0/6?newI=true`));
+
     if (isLoading) {
         return <Loading />
     }
-    const newProduct = data?.data || [];
+    const newProduct = data?.data?.products;
+
     
     return (
         <div className='mt-4 mb-4'>
@@ -22,7 +25,7 @@ const NewProduct = () => {
                 }
             </div>
             <div className='text-right mr-2'>
-                <button className='btn text-white'>Load More</button>
+                <Link className='btn text-white' to='/products/true'>Load More</Link>
             </div>
         </div>
     );

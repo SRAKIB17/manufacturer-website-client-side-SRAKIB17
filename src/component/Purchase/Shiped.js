@@ -50,13 +50,13 @@ const Shipped = ({ product: { product, quantityRef, setProductSet } }) => {
 
 
 
-            <input type="checkbox" id="shippedProduct" class="modal-toggle" />
+            <input type="checkbox" id="shippedProduct" className="modal-toggle" />
 
 
-            <div class="modal">
-                <div class="modal-box relative">
-                    <label for="shippedProduct" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 class="text-lg font-bold text-center text-primary">Please Provide right information</h3>
+            <div className="modal">
+                <div className="modal-box relative">
+                    <label for="shippedProduct" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <h3 className="text-lg font-bold text-center text-primary">Please Provide right information</h3>
 
                     <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col justify-center max-w-xs mx-auto'>
 

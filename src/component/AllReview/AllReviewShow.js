@@ -6,7 +6,7 @@ const AllReviewShow = ({ review, index }) => {
 
     return (
         <div className='mx-auto' style={{maxWidth: '700px'}}>
-            <div class="card bg-base-100 shadow-xl mb-2">
+            <div className="card bg-base-100 shadow-xl mb-2">
                 <div className='flex p-4'>
                     <div className="avatar mr-4">
                         <div className="w-24 mask mask-hexagon">
@@ -53,7 +53,7 @@ const AllReviewShow = ({ review, index }) => {
                     </div>
 
                 </div>
-                <p class="card-body">{review.review} ...</p>
+                <p className="card-body">{review.review} ...</p>
             </div>
         </div>
     );

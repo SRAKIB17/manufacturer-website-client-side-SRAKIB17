@@ -94,31 +94,31 @@ const AddReview = () => {
                 />
 
                 <div className='m-3'>
-                    <div class="rating gap-1">
+                    <div className="rating gap-1">
                         <input
                             type="radio" name="rating-3"
-                            class="mask mask-star-2 bg-red-400"
+                            className="mask mask-star-2 bg-red-400"
                         />
 
                         <input
                             type="radio"
                             name="rating-3"
-                            class="mask mask-star-2 bg-orange-400"
+                            className="mask mask-star-2 bg-orange-400"
 
                             checked
                         />
                         <input
                             type="radio"
                             name="rating-3"
-                            class="mask mask-star-2 bg-yellow-400" />
+                            className="mask mask-star-2 bg-yellow-400" />
                         <input
                             type="radio"
                             name="rating-3"
-                            class="mask mask-star-2 bg-lime-400" />
+                            className="mask mask-star-2 bg-lime-400" />
                         <input
                             type="radio"
                             name="rating-3"
-                            class="mask mask-star-2 bg-green-400" />
+                            className="mask mask-star-2 bg-green-400" />
                     </div>
                 </div>
                 <input type="submit" className='btn btn-secondary text-white' value="Submit" />

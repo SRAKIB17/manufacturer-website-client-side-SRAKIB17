@@ -3,13 +3,13 @@ import React from 'react';
 const Admin = () => {
     return (
         <div>
-            <div class="hero min-h-screen bg-base-200 flex md: justify-around justify-center ">
-                <div class="hero-content flex-col lg:flex-row-reverse">
+            <div className="hero min-h-screen bg-base-200 flex md: justify-around justify-center ">
+                <div className="hero-content flex-col lg:flex-row-reverse">
                     <img src="https://i.ibb.co/xjs8fWY/96996729.jpg" className='rounded-md' />
                     <div>
-                        <h1 class="text-5xl font-bold m-4">About Me</h1>
-                        <div class="overflow-x-auto w-96 md:w-full md:overflow-hidden">
-                            <table class="table overflow-auto">
+                        <h1 className="text-5xl font-bold m-4">About Me</h1>
+                        <div className="overflow-x-auto w-96 md:w-full md:overflow-hidden">
+                            <table className="table overflow-auto">
 
                                 <tbody>
                                     <tr>
@@ -19,7 +19,7 @@ const Admin = () => {
 
                                     </tr>
 
-                                    <tr class="active">
+                                    <tr className="active">
                                         <td>2</td>
                                         <td>Email</td>
                                         <td>rakibulssc5@gmail.com</td>
@@ -32,7 +32,7 @@ const Admin = () => {
 
                                     </tr>
 
-                                    <tr class="active">
+                                    <tr className="active">
                                         <td>4</td>
                                         <td> Educational Background</td>
                                         <td>CSE</td>

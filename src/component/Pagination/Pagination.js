@@ -5,7 +5,7 @@ const Pagination = ({count, page, skipHandle, pageHandle }) => {
     
     return (
         <div className='p-4 flex justify-center items-center'>
-            <div class="btn-group">
+            <div className="btn-group">
 
                 {
                     Number.isFinite(count) && (

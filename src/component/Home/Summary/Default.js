@@ -20,8 +20,8 @@ const Default = ({ props: data }) => {
                         <Bar dataKey="Total" fill="#8884d8" barSize={30} />
                     </BarChart>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="table w-full">
+                <div className="overflow-x-auto">
+                    <table className="table w-full">
                         <tbody>
 
                             <tr>
@@ -31,7 +31,7 @@ const Default = ({ props: data }) => {
 
                             </tr>
 
-                            <tr class="active">
+                            <tr className="active">
 
                                 <td>Annual revenue</td>
                                 <td>120M+</td>
