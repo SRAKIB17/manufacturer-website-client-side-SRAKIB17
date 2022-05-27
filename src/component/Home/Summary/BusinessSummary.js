@@ -37,13 +37,13 @@ const BusinessSummary = () => {
             <div>
                 <h1 className='text-center text-3xl text-white m-4 '>Business Summary</h1>
             </div>
-            <div>
+            <div >
 
 
 
-                <div className="carousel w-full">
+                <div className="carousel w-full overflow-auto">
                     <div id="item1" className="carousel-item w-full">
-                        <div className='mx-auto'>
+                        <div className='sm:mx-auto'>
                             <Default props={defaultS} />
                         </div>
 

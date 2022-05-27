@@ -6,10 +6,10 @@ const Default = ({ props: data }) => {
     return (
 
 
-        <div>
+        <div className='overflow-auto overflow-x-auto'>
             <h1 className='text-center text-white text-2xl m-2'>Total Review</h1>
 
-            <div className='flex gap-4 flex-col md:flex-row'>
+            <div className='flex gap-4 flex-col sm:flex-col md:flex-row' >
                 <div>
                     <BarChart width={600} height={300} data={data}>
                         <XAxis dataKey="default" stroke="#8884d8" />

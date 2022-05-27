@@ -6,7 +6,7 @@ const Customers = ({ props: data }) => {
     return (
         <div>
             <h1 className='text-2xl text-white text-center m-2'>Total Customer</h1>
-            <div className='flex lg:justify-center mxau' >
+            <div className='flex lg:justify-center mxau flex-col' >
                 <BarChart width={600} height={300} data={data}>
                     <XAxis dataKey="year" stroke="#8884d8" />
                     <YAxis />
