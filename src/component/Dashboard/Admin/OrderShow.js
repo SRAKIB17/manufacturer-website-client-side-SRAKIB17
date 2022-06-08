@@ -44,10 +44,10 @@ const OrderShow = ({ order, index }) => {
         <tr>
             <td>{index + 1}</td>
             <td><img src={image} className='w-8 md:w-10 rounded-full' alt="" /></td>
-            <td>{name.slice(0, 30)}...</td>
+            <td>{name?.slice(0, 30)}...</td>
             <td>{category}</td>
             <td>{TotalPrice}</td>
-            <td title={address}>{address.slice(0, 15)}..</td>
+            <td title={address}>{address?.slice(0, 15)}..</td>
             <td>
                 {payment ?
                     <span className=''>

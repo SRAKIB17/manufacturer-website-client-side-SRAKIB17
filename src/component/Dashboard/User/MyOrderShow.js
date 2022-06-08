@@ -14,7 +14,7 @@ const MyOrderShow = ({ order, index, cancelOrder }) => {
 
     const navigate = useNavigate()
 
-    const { orderId, quantity, address, payment,status } = order;
+    const { orderId, quantity, address, payment, status } = order;
 
 
     const { data, isLoading, error } = useQuery('SpecificOrder', () => axios.get(`https://fathomless-thicket-10172.herokuapp.com/product/${orderId}`,
@@ -45,17 +45,19 @@ const MyOrderShow = ({ order, index, cancelOrder }) => {
             <td>{TotalPrice}</td>
             <td>{address?.slice(0, 20)}..</td>
             {
-                payment ? <td ><span className='rounded-md p-1 text-xs font-bold text-white border-none btn-success btn-xs'>{status|| 'Paid'}</span></td> :
+                payment ? <td ><span className='rounded-md p-1 text-xs font-bold text-white border-none btn-success btn-xs'>{status || 'Paid'}</span></td> :
                     <td><button onClick={() => navigate(`/payment/${order._id}/${orderId}`)} className='btn btn-secondary btn-xs text-white'>Pay Now</button></td>
             }
             <td>
 
-                <label
-                    for="cancelOrder"
-                    onClick={() => cancelOrder(order._id)}
-                    className='btn border-none bg-red-600 btn-xs'>
-                    cancel
-                </label>
+                <button className={'btn border-none bg-red-600 btn-xs ' + (payment ? 'btn-disabled' : '')} onClick={() => cancelOrder(order._id)}>
+                    <label
+                        className='text-white'
+                        for="cancelOrder"
+                    >
+                        cancel
+                    </label>
+                </button>
             </td>
         </tr>
     );

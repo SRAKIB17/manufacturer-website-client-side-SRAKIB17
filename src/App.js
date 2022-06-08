@@ -44,8 +44,13 @@ function App() {
         <Route path='/dashboard' element={<Private><Dashboard /></Private>}>
           <Route index element={<MyProfile />} />
           <Route path='profile' element={<MyProfile />} />
-          <Route path='add-review' element={<AddReview />} />
-          <Route path='my-order' element={<MyOrder />} />
+          {
+            admin?.admin ||
+            <>
+              <Route path='add-review' element={<AddReview />} />
+              <Route path='my-order' element={<MyOrder />} />
+            </>
+          }
           {/* Private auth */}
           {
             admin?.admin && <>
